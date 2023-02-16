@@ -39,7 +39,7 @@ int generate_number()
     // Get random number
     time_t present_time;
     present_time=time(NULL);
-    return (present_time*present_time)%100;
+    return (present_time)%100;
 }
 
 bool get_initial_input()
