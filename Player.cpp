@@ -103,16 +103,69 @@ void Player::setPenalty(int penalty) {
     this->penalty = penalty;
 }
 
-friend ostream& operator << (ostream& outs, const Player& pla){
-    outs << left << setw(23) << pla.getName();
-    outs << right << setw(5) << pla.getRank();
-    outs << setw(9) << pla.getBorn();
-    outs << setw(10) << pla.getPosition();
-    outs << setw(14) << pla.getGamesPlayed();
-    outs << setw(9) << pla.getGoals();
-    outs << setw(9) << pla.getAssists();
-    outs << setw(9) << pla.getPoints();
-    outs << setw(13) << pla.getPenalty();
+/**
+     *
+     * NEED FIXING
+     *
+     */
+//Player ostream& operator << (ostream& outs, const Player& pla){
+//    outs << left << setw(23) << pla.getName();
+//    outs << right << setw(5) << pla.getRank();
+//    outs << setw(9) << pla.getBorn();
+//    outs << setw(10) << pla.getPosition();
+//    outs << setw(14) << pla.getGamesPlayed();
+//    outs << setw(9) << pla.getGoals();
+//    outs << setw(9) << pla.getAssists();
+//    outs << setw(9) << pla.getPoints();
+//    outs << setw(13) << pla.getPenalty();
+//
+//    return outs;
+//}
 
-    return outs;
+bool operator < (const Player& lhs, const Player& rhs) {
+    int result = lhs.getName().compare(rhs.getName());
+    if(result < 0)
+        return true;
+    else
+        return false;
+}
+
+bool operator > (const Player& lhs, const Player& rhs){
+    int result = lhs.getName().compare(rhs.getName());
+    if(result > 0)
+        return true;
+    else
+        return false;
+}
+
+bool operator <= (const Player& lhs, const Player& rhs){
+    int result = lhs.getName().compare(rhs.getName());
+    if(result <= 0)
+        return true;
+    else
+        return false;
+}
+
+bool operator >= (const Player& lhs, const Player& rhs){
+    int result = lhs.getName().compare(rhs.getName());
+    if(result >= 0)
+        return true;
+    else
+        return false;
+}
+
+bool operator == (const Player& lhs, const Player& rhs){
+    int result = lhs.getName().compare(rhs.getName());
+    if(result == 0)
+        return true;
+    else
+        return false;
+}
+
+bool operator != (const Player& lhs, const Player& rhs){
+    int result = lhs.getName().compare(rhs.getName());
+    if(result != 0)
+        return true;
+    else
+        return false;
 }

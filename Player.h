@@ -175,58 +175,24 @@ public:
      */
     void setPenalty(int penalty);
 
+    /**
+     *
+     * NEED FIXING
+     *
+     */
     friend ostream& operator << (ostream& outs, const Player& pla);
 
-    // Overload operators for object comparison
-    friend bool operator < (const Player& lhs, const Player& rhs) {
-        int result = lhs.getName().compare(rhs.getName());
-        if(result < 0)
-            return true;
-        else
-            return false;
-    }
+    friend bool operator < (const Player& lhs, const Player& rhs);
 
-    friend bool operator > (const Player& lhs, const Player& rhs){
-        int result = lhs.getName().compare(rhs.getName());
-        if(result > 0)
-            return true;
-        else
-            return false;
-    }
+    friend bool operator > (const Player& lhs, const Player& rhs);
 
-    friend bool operator <= (const Player& lhs, const Player& rhs){
-        int result = lhs.getName().compare(rhs.getName());
-        if(result <= 0)
-            return true;
-        else
-            return false;
-    }
+    friend bool operator <= (const Player& lhs, const Player& rhs);
 
-    friend bool operator >= (const Player& lhs, const Player& rhs){
-        int result = lhs.getName().compare(rhs.getName());
-        if(result >= 0)
-            return true;
-        else
-            return false;
-    }
+    friend bool operator >= (const Player& lhs, const Player& rhs);
 
-    friend bool operator == (const Player& lhs, const Player& rhs){
-        int result = lhs.getName().compare(rhs.getName());
-        if(result == 0)
-            return true;
-        else
-            return false;
-    }
+    friend bool operator == (const Player& lhs, const Player& rhs);
 
-    friend bool operator != (const Player& lhs, const Player& rhs){
-        int result = lhs.getName().compare(rhs.getName());
-        if(result != 0)
-            return true;
-        else
-            return false;
-    }
-
-
+    friend bool operator != (const Player& lhs, const Player& rhs);
 
 };
 
