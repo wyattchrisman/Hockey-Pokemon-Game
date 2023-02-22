@@ -241,7 +241,6 @@ public:
 
 };
 
-
 void getDataFromFile(string filename, vector<Player>& players);
 
 void printHeader();

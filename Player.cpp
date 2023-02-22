@@ -141,19 +141,19 @@ void Player::setPassStat(int passStat) {
      * NEED FIXING
      *
      */
-//Player ostream& operator << (ostream& outs, const Player& pla){
-//    outs << left << setw(23) << pla.getName();
-//    outs << right << setw(5) << pla.getRank();
-//    outs << setw(9) << pla.getBorn();
-//    outs << setw(10) << pla.getPosition();
-//    outs << setw(14) << pla.getGamesPlayed();
-//    outs << setw(9) << pla.getGoals();
-//    outs << setw(9) << pla.getAssists();
-//    outs << setw(9) << pla.getPoints();
-//    outs << setw(13) << pla.getPenalty();
-//
-//    return outs;
-//}
+ostream& operator << (ostream& outs, const Player& pla){
+    outs << left << setw(23) << pla.getName();
+    outs << right << setw(5) << pla.getRank();
+    outs << setw(9) << pla.getBorn();
+    outs << setw(10) << pla.getPosition();
+    outs << setw(14) << pla.getGamesPlayed();
+    outs << setw(9) << pla.getGoals();
+    outs << setw(9) << pla.getAssists();
+    outs << setw(9) << pla.getPoints();
+    outs << setw(13) << pla.getPenalty();
+
+    return outs;
+}
 
 bool operator < (const Player& lhs, const Player& rhs) {
     int result = lhs.getName().compare(rhs.getName());
@@ -259,9 +259,9 @@ void getDataFromFile(string filename, vector<Player>& players) {
         players.push_back(Player(rank, name, born, position, gamesPlayed, goals,
                                  assists, points, penalty, fightStat, shotStat, passStat));
     }
-
     inFile.close();
 }
+
 
 void printHeader() {
 
