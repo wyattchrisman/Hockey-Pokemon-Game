@@ -20,7 +20,7 @@ using namespace std;
 class Player {
 
     //Create all variables to be filled
-private:
+protected:
     int rank; //players rank out of 1000 for points
     string name; //players name
     int born; //year player was born
@@ -29,127 +29,153 @@ private:
     int goals; //number of goals scored in career
     int assists; //number of assists in career
     int points; //number of points in career
-    string penalty; //number of penatly minutes in career
+    int penalty; //number of penatly minutes in career
 
 
 public:
-    // Create Constructors
-    Player() {
-        //set all variables to something that would stand out in the data as not fitting
-        rank = -1;
-        name = "XXX XXX";
-        born = -1;
-        position = "XXX XXX";
-        gamesPlayed = -1;
-        goals = -1;
-        assists = -1;
-        points = -1;
-        penalty = "XXX XXX";
-    }
+    /**
+     * Requires: nothing
+     * Modifies: rank, name, born, position, gamesPlayed, goals, assists, points, penalty
+     * Effects: sets all player qualities to impossible values
+     */
+    Player();
 
-    // constructor that takes in all players attributes
-    Player(int rank, string name, int born, string position, int gamesPlayed,
-           int goals, int assists, int points, string penalty) {
+    /**
+     * Requires: all player qualities
+     * Modifies: all player qualities
+     * Effects: sets all player qualities to input values
+     */
+    explicit Player(int rank, string name, int born, string position, int gamesPlayed,
+           int goals, int assists, int points, int penalty);
 
-        this->rank = rank;
-        this->name = name;
-        this->born = born;
-        this->position = position;
-        this->gamesPlayed = gamesPlayed;
-        this->goals = goals;
-        this->assists = assists;
-        this->points = points;
-        this->penalty = penalty;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's rank
+     */
+    int getRank() const;
 
-    // Create all getters
-    int getRank() const {
-        return rank;
-    }
 
-    string getName() const {
-        return name;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's name
+     */
+    string getName() const;
 
-    int getBorn() const {
-        return born;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's birth year
+     */
+    int getBorn() const;
 
-    string getPosition() const {
-        return position;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's position
+     */
+    string getPosition() const;
 
-    int getGamesPlayed() const {
-        return gamesPlayed;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of games played
+     */
+    int getGamesPlayed() const;
 
-    int getGoals() const {
-        return goals;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of goals scored
+     */
+    int getGoals() const;
 
-    int getAssists() const {
-        return assists;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of assists
+     */
+    int getAssists() const;
 
-    int getPoints() const {
-        return points;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of points
+     */
+    int getPoints() const;
 
-    string getPenalty() const {
-        return penalty;
-    }
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of penalty minutes
+     */
+    int getPenalty() const;
 
-    // Create all setters
-    void setRank(int rank) {
-        this->rank = rank;
-    }
+    /**
+     * Requires: rank
+     * Modifies: rank
+     * Effects: sets player's rank
+     */
+    void setRank(int rank);
 
-    void setName(string name) {
-        this->name = name;
-    }
+    /**
+     * Requires: name
+     * Modifies: name
+     * Effects: sets player's name
+     */
+    void setName(string name);
 
-    void setBorn(int born) {
-        this->born = born;
-    }
+    /**
+     * Requires: born
+     * Modifies: born
+     * Effects: sets player's year born
+     */
+    void setBorn(int born);
 
-    void setPosition(string position) {
-        this->position = position;
-    }
+    /**
+     * Requires: position
+     * Modifies: position
+     * Effects: sets player's position
+     */
+    void setPosition(string position);
 
-    void setGamesPlayed(int gamesPlayed) {
-        this->gamesPlayed = gamesPlayed;
-    }
+    /**
+     * Requires: gamesPlayed
+     * Modifies: gamesPlayed
+     * Effects: sets player's games played
+     */
+    void setGamesPlayed(int gamesPlayed);
 
-    void setGoals(int goals) {
-        this->goals = goals;
-    }
+    /**
+     * Requires: goals
+     * Modifies: goals
+     * Effects: sets player's goals
+     */
+    void setGoals(int goals);
 
-    void setAssists(int assists) {
-        this->assists = assists;
-    }
+    /**
+     * Requires: gamesPlayed
+     * Modifies: gamesPlayed
+     * Effects: sets player's assists
+     */
+    void setAssists(int assists);
 
-    void setPoints(int points) {
-        this->points = points;
-    }
+    /**
+     * Requires: points
+     * Modifies: points
+     * Effects: sets player's points
+     */
+    void setPoints(int points);
 
-    void setPenalty(string penalty) {
-        this->penalty = penalty;
-    }
+    /**
+     * Requires: penalty
+     * Modifies: penalty
+     * Effects: sets player's penalty minutes
+     */
+    void setPenalty(int penalty);
 
-    // Overload the stream operator for comprehensive printing
-    friend ostream& operator << (ostream& outs, const Player& pla){
-        outs << left << setw(23) << pla.getName();
-        outs << right << setw(5) << pla.getRank();
-        outs << setw(9) << pla.getBorn();
-        outs << setw(10) << pla.getPosition();
-        outs << setw(14) << pla.getGamesPlayed();
-        outs << setw(9) << pla.getGoals();
-        outs << setw(9) << pla.getAssists();
-        outs << setw(9) << pla.getPoints();
-        outs << setw(13) << pla.getPenalty();
-
-        return outs;
-    }
+    friend ostream& operator << (ostream& outs, const Player& pla);
 
     // Overload operators for object comparison
     friend bool operator < (const Player& lhs, const Player& rhs) {
@@ -222,8 +248,8 @@ void getDataFromFile(string filename, vector<Player>& players) {
 
     //set variables to recognizable values
     int rank = -1, born = -1, gamesPlayed = -1, goals = -1, assists = -1,
-            points = -1;
-    string name = "XXX XXX", position = "XXX XXX", penalty = "XXX XXX";
+            points = -1, penalty = -1;
+    string name = "XXX XXX", position = "XXX XXX";
     char comma;
 
     //loop to validate that file continues while printing player data
@@ -254,7 +280,7 @@ void getDataFromFile(string filename, vector<Player>& players) {
         //cout << points << endl;
         inFile >> comma;
 
-        getline(inFile, penalty);
+        inFile >> penalty;
 
 
         //Store info in a player object and add to vector
