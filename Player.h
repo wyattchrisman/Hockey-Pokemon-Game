@@ -30,6 +30,9 @@ protected:
     int assists; //number of assists in career
     int points; //number of points in career
     int penalty; //number of penatly minutes in career
+    int fightStat;
+    int shotStat;
+    int passStat;
 
 
 public:
@@ -46,7 +49,7 @@ public:
      * Effects: sets all player qualities to input values
      */
     explicit Player(int rank, string name, int born, string position, int gamesPlayed,
-           int goals, int assists, int points, int penalty);
+           int goals, int assists, int points, int penalty, int fightStat, int shotStat, int passStat);
 
     /**
      * Requires: nothing
@@ -113,6 +116,27 @@ public:
     int getPenalty() const;
 
     /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's fight stat
+     */
+    int getFightStat() const;
+
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of shot stat
+     */
+    int getShotStat() const;
+
+    /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: returns player's amount of pass stat
+     */
+    int getPassStat() const;
+
+    /**
      * Requires: rank
      * Modifies: rank
      * Effects: sets player's rank
@@ -176,6 +200,27 @@ public:
     void setPenalty(int penalty);
 
     /**
+     * Requires: fightStat
+     * Modifies: fightStat
+     * Effects: sets player's fightStat
+     */
+    void setFightStat(int fightStat);
+
+    /**
+     * Requires: shotStat
+     * Modifies: shotStat
+     * Effects: sets player's shotStat
+     */
+    void setShotStat(int shotStat);
+
+    /**
+     * Requires: passStat
+     * Modifies: passStat
+     * Effects: sets player's passStat
+     */
+    void setPassStat(int passStat);
+
+    /**
      *
      * NEED FIXING
      *
@@ -196,108 +241,9 @@ public:
 
 };
 
-//open file that has player data and apply all data to a vector
-void getDataFromFile(string filename, vector<Player>& players) {
-    //open file
-    ifstream inFile;
-    inFile.open(filename);
 
-    //get header
-    string header;
-    if(inFile){
-        //Read in the header for each category
-        getline(inFile, header);
-        //cout << header << endl;
-    } else {
-        cout << "File could not be opened." << endl;
-    }
+void getDataFromFile(string filename, vector<Player>& players);
 
-    //set variables to recognizable values
-    int rank = -1, born = -1, gamesPlayed = -1, goals = -1, assists = -1,
-            points = -1, penalty = -1;
-    string name = "XXX XXX", position = "XXX XXX";
-    char comma;
+void printHeader();
 
-    //loop to validate that file continues while printing player data
-    while(inFile && inFile.peek() != EOF) {
-        //assign player rank and print
-        inFile >> rank;
-        inFile >> comma;
-
-        getline(inFile, name, ',');
-        //cout << name << endl;
-
-        inFile >> born;
-        //cout << born << endl;
-        inFile >> comma;
-
-        getline(inFile, position, ',');
-
-        inFile >> gamesPlayed;
-        inFile >> comma;
-
-        inFile >> goals;
-        inFile >> comma;
-
-        inFile >> assists;
-        inFile >> comma;
-
-        inFile >> points;
-        //cout << points << endl;
-        inFile >> comma;
-
-        inFile >> penalty;
-
-
-        //Store info in a player object and add to vector
-        players.push_back(Player(rank, name, born, position, gamesPlayed, goals,
-                                 assists, points, penalty));
-    }
-
-    inFile.close();
-}
-
-//ability to get number of forwards in top 1000
-int getNumForwards(string fileName, vector<Player> players) {
-    ifstream inFile;
-    inFile.open(fileName);
-    int numForwards = 0;
-
-    for(int i = 0; i < players.size(); ++i){
-        if(players[i].getPosition() == "F"){
-            ++numForwards;
-        }
-    }
-
-    return numForwards;
-}
-
-//ability to get number of defenseman in top 1000
-int getNumDefenseman(string fileName, vector<Player> players) {
-    ifstream inFile;
-    inFile.open(fileName);
-    int numDefenseman = 0;
-
-    for (int i = 0; i < players.size(); ++i) {
-        if (players[i].getPosition() == "F") {
-            ++numDefenseman;
-        }
-    }
-
-    return numDefenseman;
-
-}
-
-void printHeader() {
-
-    cout << left << setw(25) << "NAME" << setw(6) << "RANK" << setw(11) <<
-         "YEAR BORN" << setw(10) << "POSITION" << setw(14) << "GAMES PLAYED" <<
-         setw(8) << "GOALS" << setw(9) << "ASSISTS" << setw(8) << "POINTS"
-         << setw(15) << "PENALTY MINUTES" << endl;
-    cout << setfill(' ');
-
-
-
-
-}
 #endif

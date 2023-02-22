@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include <vector>
 
 Player::Player() {
     //set all variables to something that would stand out in the data as not fitting
@@ -15,10 +16,13 @@ Player::Player() {
     assists = -1;
     points = -1;
     penalty = -1;
+    fightStat = -1;
+    shotStat = -1;
+    passStat = -1;
 }
 
-Player::Player(int rank, string name, int born, string position, int gamesPlayed,
-               int goals, int assists, int points, int penalty) {
+Player::Player(int rank, string name, int born, string position, int gamesPlayed,int goals,
+               int assists, int points, int penalty, int fightStat, int shotStat, int passStat) {
 
     this->rank = rank;
     this->name = name;
@@ -29,6 +33,9 @@ Player::Player(int rank, string name, int born, string position, int gamesPlayed
     this->assists = assists;
     this->points = points;
     this->penalty = penalty;
+    this->fightStat = fightStat;
+    this->shotStat = shotStat;
+    this->passStat = passStat;
 }
 
 int Player::getRank() const {
@@ -67,6 +74,18 @@ int Player::getPenalty() const {
     return penalty;
 }
 
+int Player::getFightStat() const{
+    return fightStat;
+}
+
+int Player::getShotStat() const{
+    return shotStat;
+}
+
+int Player::getPassStat() const{
+    return passStat;
+}
+
 void Player::setRank(int rank) {
     this->rank = rank;
 }
@@ -102,6 +121,20 @@ void Player::setPoints(int points) {
 void Player::setPenalty(int penalty) {
     this->penalty = penalty;
 }
+
+void Player::setFightStat(int fightStat) {
+    this->fightStat = fightStat;
+}
+
+void Player::setShotStat(int shotStat) {
+    this->shotStat = shotStat;
+}
+
+void Player::setPassStat(int passStat) {
+    this->passStat = passStat;
+}
+
+
 
 /**
      *
@@ -168,4 +201,73 @@ bool operator != (const Player& lhs, const Player& rhs){
         return true;
     else
         return false;
+}
+
+void getDataFromFile(string filename, vector<Player>& players) {
+    //open file
+    ifstream inFile;
+    inFile.open(filename);
+
+    //get header
+    string header;
+    if(inFile){
+        //Read in the header for each category
+        getline(inFile, header);
+        //cout << header << endl;
+    } else {
+        cout << "File could not be opened." << endl;
+    }
+
+    //set variables to recognizable values
+    int rank = -1, born = -1, gamesPlayed = -1, goals = -1, assists = -1,
+            points = -1, penalty = -1, fightStat = 0, shotStat = 0, passStat = 0;
+    string name = "XXX XXX", position = "XXX XXX";
+    char comma;
+
+    //loop to validate that file continues while printing player data
+    while(inFile && inFile.peek() != EOF) {
+        //assign player rank and print
+        inFile >> rank;
+        inFile >> comma;
+
+        getline(inFile, name, ',');
+        //cout << name << endl;
+
+        inFile >> born;
+        //cout << born << endl;
+        inFile >> comma;
+
+        getline(inFile, position, ',');
+
+        inFile >> gamesPlayed;
+        inFile >> comma;
+
+        inFile >> goals;
+        inFile >> comma;
+
+        inFile >> assists;
+        inFile >> comma;
+
+        inFile >> points;
+        //cout << points << endl;
+        inFile >> comma;
+
+        inFile >> penalty;
+
+
+        //Store info in a player object and add to vector
+        players.push_back(Player(rank, name, born, position, gamesPlayed, goals,
+                                 assists, points, penalty, fightStat, shotStat, passStat));
+    }
+
+    inFile.close();
+}
+
+void printHeader() {
+
+    cout << left << setw(25) << "NAME" << setw(6) << "RANK" << setw(11) <<
+         "YEAR BORN" << setw(10) << "POSITION" << setw(14) << "GAMES PLAYED" <<
+         setw(8) << "GOALS" << setw(9) << "ASSISTS" << setw(8) << "POINTS"
+         << setw(15) << "PENALTY MINUTES" << endl;
+    cout << setfill(' ');
 }
