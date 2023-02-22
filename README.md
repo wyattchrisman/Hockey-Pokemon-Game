@@ -1,4 +1,4 @@
-# M1OEP-wchrisma
+# M2OEP-wchrisma
 Module1 Open ended project
 
 CS 120 Module 2 Open-Ended Project
@@ -20,13 +20,13 @@ Requirements
   * Your main program should have a clear and complex purpose. The goals and functionality of your program should inform the development and design of your class(es) and other concepts. You are highly encouraged to plan and design your main.cpp functionality before writing your other files. Put an add_executable line in CMakeLists.txt to create an executable for your main program. The program should be interactive and all user input must be validated.
 
 
-| Grading Section | Points Deserved | Reasoning | 
-|-----------------|-----------------|-----------|
-| Main program complexity and usability | /40             |           |
-| Testing program         | /20             |           |
+| Grading Category                           | Points Deserved | Reasoning | 
+|--------------------------------------------|-----------------|-----------|
+| Main program complexity and usability      | /40             |           |
+| Testing program                            | /20             |           |
 | Concepts: Is-A or Has-A class relationship | /20             |           |
-| Concepts: File input or file output  | /5              |           |
-|                 |                 |           |
+| Concepts: File input or file output        | /5              |           |
+|                                            |                 |           |
 
 
   Module 2 Concept Menu
