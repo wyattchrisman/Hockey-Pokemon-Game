@@ -33,7 +33,8 @@ protected:
     double fightStat;
     double shotStat;
     double passStat;
-    double multiplier = 1.3;
+    double const multiplier = 1.3;
+    int const MAX_SCORE = 100;
 
 
 public:
@@ -45,12 +46,19 @@ public:
     Player();
 
     /**
+     * Requires: nothing
+     * Modifies: nothing
+     * Effects: does nothing
+     */
+    virtual ~Player() = default;
+
+    /**
      * Requires: all player qualities
      * Modifies: all player qualities
      * Effects: sets all player qualities to input values
      */
-    explicit Player(int rank, string name, int born, string position, int gamesPlayed,
-           int goals, int assists, int points, int penalty, double fightStat, double shotStat, double passStat);
+    explicit Player(int rank, string name, int born, string position, int gamesPlayed, int goals, int assists,
+                    int points, int penalty, double fightStat, double shotStat, double passStat);
 
     /**
      * Requires: nothing
@@ -242,10 +250,10 @@ public:
 
     virtual std::string playerSaying() = 0;
 
+    void printHeader();
+
 };
 
-void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 
-void printHeader();
 
 #endif
