@@ -10,7 +10,8 @@ using namespace std;
 
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 void printHeader();
-void getPlayerAmounts(vector<unique_ptr<Player>>& players) ;
+void getPlayerAmounts(vector<unique_ptr<Player>>& players);
+void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &fightStat, double &shotStat, double &passStat);
 
 int main(){
 
@@ -20,8 +21,11 @@ int main(){
 
     getDataFromFile(filename,players);
 
-    printHeader();
-    getPlayerAmounts(players);
+    double fightStat;
+    double shotStat;
+    double passStat;
+
+    getPlayerStats(players, 497, fightStat, shotStat, passStat);
 
 
     return 0;
@@ -44,8 +48,11 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
     }
 
     //set variables to recognizable values
-    int rank = -1, born = -1, gamesPlayed = -1, goals = -1, assists = -1,
-            points = -1, penalty = -1, fightStat = 0, shotStat = 0, passStat = 0;
+    int rank = -1, born = -1, gamesPlayed = -1, goals = -1,
+        assists = -1,points = -1, penalty = -1;
+
+    double fightStat = -1, shotStat = -1, passStat = -1;
+
     string name = "XXX XXX", position = "XXX XXX";
     char comma;
 
@@ -79,7 +86,9 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
 
         inFile >> penalty;
 
-
+        fightStat = penalty/49.5;
+        shotStat = goals/11.1;
+        passStat = assists/22.40;
 
         bool setType = false;
         if(goals >= 310) {
@@ -149,6 +158,19 @@ void getPlayerAmounts(vector<unique_ptr<Player>>& players) {
     cout << "Sniper: " << snip << endl;
     cout << "Fighter: " << fight << endl;
     cout << "Playmaker: " << play << endl;
+}
+
+void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &fightStat, double &shotStat, double &passStat){
+    cout << "Player name: " << players[index]->getName() << endl;
+
+    fightStat = players[index]->getFightStat();
+    cout << "Fighter Stat: " << fightStat << endl;
+
+    shotStat = players[index]->getShotStat();
+    cout << "Shot Stat: " << shotStat << endl;
+
+    passStat = players[index]->getPassStat();
+    cout << "Pass Stat: " << passStat << endl;
 }
 
 

@@ -17,16 +17,16 @@ Veteran::Veteran() : Player(){
     points = -1;
     penalty = -1;
 
-    // These numbers are divided by a value that will allow the top players to have about a score of 80
-    fightStat = (penalty/4950)*veteranStatMultiplier;
-    shotStat = (goals/11.1)*veteranStatMultiplier;
-    passStat = (assists/2240)*veteranStatMultiplier;
+    fightStat = -1;
+    shotStat = -1;
+    passStat = -1;
 }
 
 Veteran::Veteran(int rank, string name, int born, string position, int gamesPlayed, int goals,
                      int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
-        Player(rank, name, born, position, gamesPlayed,goals, assists,
-               points, penalty, fightStat, shotStat, passStat){
+        Player(rank, name, born, position, gamesPlayed,goals, assists, points, penalty,
+               fightStat*veteranStatMultiplier, shotStat*veteranStatMultiplier,
+               passStat*veteranStatMultiplier){
 }
 
 string Veteran::playerSaying() {

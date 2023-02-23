@@ -20,9 +20,10 @@ Player::Player() {
     assists = -1;
     points = -1;
     penalty = -1;
-    fightStat = 0;
-    shotStat = 0;
-    passStat = 0;
+
+   fightStat = -1;
+    shotStat = -1;
+    passStat = -1;
 }
 
 Player::Player(int rank, string name, int born, string position, int gamesPlayed,int goals,
