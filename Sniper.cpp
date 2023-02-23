@@ -16,15 +16,17 @@ Sniper::Sniper() : Player(){
     assists = -1;
     points = -1;
     penalty = -1;
-    fightStat = 0;
-    shotStat = 0;
-    passStat = 0;
+
+    // These numbers are divided by a value that will allow the top players to have about a score of 80
+    fightStat = penalty/4950;
+    shotStat = (goals/11.1)*statMultiplier;
+    passStat = assists/2240;
 }
 
 Sniper::Sniper(int rank, string name, int born, string position, int gamesPlayed, int goals,
                  int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
         Player(rank, name, born, position, gamesPlayed,goals, assists,
-               points, penalty, fightStat, shotStat*multiplier, passStat){
+               points, penalty, fightStat, shotStat, passStat){
 }
 
 string Sniper::playerSaying() {
