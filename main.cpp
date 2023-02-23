@@ -1,8 +1,8 @@
 #include "Player.cpp"
-#include "Normal.h"
-#include "Sniper.h"
-#include "Fighter.h"
-#include "Playmaker.h"
+#include "Normal.cpp"
+#include "Sniper.cpp"
+#include "Fighter.cpp"
+#include "Playmaker.cpp"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -17,10 +17,9 @@ int main(){
     vector<unique_ptr<Player>> players;
     getDataFromFile(filename,players);
 
-
-
-
-    cout << players[0] << endl;
+    for(int i = 0; i < players.size(); ++i){
+        cout << players[i] << endl;
+    }
 
 
     return 0;
@@ -93,9 +92,12 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
         if(penalty >= 955 && !setType){
             players.push_back(make_unique<Fighter>(rank, name, born, position, gamesPlayed, goals,
                                                    assists, points, penalty, fightStat, shotStat, passStat));
-        } else {
+            setType = true;
+        }
+        if(!setType){
             players.push_back(make_unique<Normal>(rank, name, born, position, gamesPlayed, goals,
                                                   assists, points, penalty, fightStat, shotStat, passStat));
+
         }
 
 

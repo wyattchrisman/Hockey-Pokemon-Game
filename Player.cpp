@@ -139,16 +139,16 @@ void Player::setPassStat(double passStat) {
 }
 
 
-ostream& operator << (ostream& outs, const Player& pla){
-    outs << left << setw(23) << pla.getName();
-    outs << right << setw(5) << pla.getRank();
-    outs << setw(9) << pla.getBorn();
-    outs << setw(10) << pla.getPosition();
-    outs << setw(14) << pla.getGamesPlayed();
-    outs << setw(9) << pla.getGoals();
-    outs << setw(9) << pla.getAssists();
-    outs << setw(9) << pla.getPoints();
-    outs << setw(13) << pla.getPenalty();
+ostream& operator << (ostream& outs, const unique_ptr<Player> &pla){
+    outs << left << setw(23) << pla->getName();
+    outs << right << setw(5) << pla->getRank();
+    outs << setw(9) << pla->getBorn();
+    outs << setw(10) << pla->getPosition();
+    outs << setw(14) << pla->getGamesPlayed();
+    outs << setw(9) << pla->getGoals();
+    outs << setw(9) << pla->getAssists();
+    outs << setw(9) << pla->getPoints();
+    outs << setw(13) << pla->getPenalty();
 
     return outs;
 }
