@@ -3,6 +3,7 @@
 //
 
 #include "Player.h"
+#include "Normal.h"
 #include <vector>
 
 Player::Player() {
@@ -203,7 +204,7 @@ bool operator != (const Player& lhs, const Player& rhs){
         return false;
 }
 
-void getDataFromFile(string filename, vector<Player>& players) {
+void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
     //open file
     ifstream inFile;
     inFile.open(filename);
@@ -256,8 +257,10 @@ void getDataFromFile(string filename, vector<Player>& players) {
 
 
         //Store info in a player object and add to vector
-        players.push_back(Player(rank, name, born, position, gamesPlayed, goals,
+        players.push_back(make_unique<Normal>(rank, name, born, position, gamesPlayed, goals,
                                  assists, points, penalty, fightStat, shotStat, passStat));
+
+
     }
     inFile.close();
 }

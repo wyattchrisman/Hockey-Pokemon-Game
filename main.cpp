@@ -12,7 +12,7 @@ int main(){
     vector<Player> players;
     getDataFromFile(filename,players);
 
-    vector<Player> playerTypes = setPlayerTypes(players);
+    vector<unique_ptr<Player>> playerTypes;
 
 
 

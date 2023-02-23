@@ -239,6 +239,8 @@ public:
 
     friend bool operator != (const Player& lhs, const Player& rhs);
 
+    virtual std::string playerSaying() = 0;
+
 };
 
 void getDataFromFile(string filename, vector<Player>& players);
