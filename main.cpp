@@ -21,7 +21,7 @@ int main(){
 
 
 vector<Player> setPlayerTypes(vector<Player> players){
-    vector<Player> newPlayers;
+    vector<unique_ptr<Player>> newPlayers;
     bool setType;
 
     for(int i = 0; i < players.size(); ++i){
