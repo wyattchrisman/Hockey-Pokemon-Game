@@ -3,29 +3,31 @@
 #include "Sniper.cpp"
 #include "Fighter.cpp"
 #include "Playmaker.cpp"
+#include "Veteran.cpp"
 #include <iostream>
 #include <iomanip>
 using namespace std;
 
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 void printHeader();
+void getPlayerAmounts(vector<unique_ptr<Player>>& players) ;
 
 int main(){
 
     // Read in all players to vector
     string filename = "../Players_List.csv";
     vector<unique_ptr<Player>> players;
+
     getDataFromFile(filename,players);
 
     printHeader();
-    for(int i = 0; i < players.size(); ++i){
-        cout << players[i] << endl;
-    }
+    getPlayerAmounts(players);
 
 
     return 0;
 };
 
+// Add all players to vector from file
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
     //open file
     ifstream inFile;
@@ -95,6 +97,11 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
                                                    assists, points, penalty, fightStat, shotStat, passStat));
             setType = true;
         }
+        if(gamesPlayed >= 750 && !setType){
+            players.push_back(make_unique<Veteran>(rank, name, born, position, gamesPlayed, goals,
+                                                   assists, points, penalty, fightStat, shotStat, passStat));
+            setType = true;
+        }
         if(!setType){
             players.push_back(make_unique<Normal>(rank, name, born, position, gamesPlayed, goals,
                                                   assists, points, penalty, fightStat, shotStat, passStat));
@@ -106,6 +113,7 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
     inFile.close();
 }
 
+// For user comprehension of player stats
 void printHeader() {
 
     cout << left << setw(25) << "NAME" << setw(6) << "RANK" << setw(11) <<
@@ -114,6 +122,35 @@ void printHeader() {
          << setw(15) << "PENALTY MINUTES" << endl;
     cout << setfill(' ');
 }
+
+// For sake of balancing out the number of each category
+void getPlayerAmounts(vector<unique_ptr<Player>>& players) {
+    int vet = 0, snip = 0, fight = 0, play = 0, normal = 0;
+    for(int i = 0; i < players.size(); ++i){
+        if(players[i]->playerSaying() == "Normal"){
+            ++normal;
+        }
+        if(players[i]->playerSaying() == "Veteran"){
+            ++vet;
+        }
+        if(players[i]->playerSaying() == "Sniper"){
+            ++snip;
+        }
+        if(players[i]->playerSaying() == "Fighter"){
+            ++fight;
+        }
+        if(players[i]->playerSaying() == "Playmaker"){
+            ++play;
+        }
+    }
+
+    cout << "Normal: " << normal << endl;
+    cout << "Veteran: " << vet << endl;
+    cout << "Sniper: " << snip << endl;
+    cout << "Fighter: " << fight << endl;
+    cout << "Playmaker: " << play << endl;
+}
+
 
 
 

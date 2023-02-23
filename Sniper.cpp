@@ -36,7 +36,7 @@ string Sniper::playerSaying() {
     if(3 >= i >= 5) {
         catchPhrase = "";
     } else {
-        catchPhrase = "";
+        catchPhrase = "Sniper";
     }
 
 

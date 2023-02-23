@@ -1,11 +1,11 @@
 //
-// Created by Wyatt Chrisman on 2/21/23.
+// Created by Wyatt Chrisman on 2/23/23.
 //
 
-#include "Playmaker.h"
+#include "Veteran.h"
 using namespace std;
 
-Playmaker::Playmaker() : Player(){
+Veteran::Veteran() : Player(){
     //set all variables to something that would stand out in the data as not fitting
     rank = -1;
     name = "XXX XXX";
@@ -21,13 +21,13 @@ Playmaker::Playmaker() : Player(){
     passStat = 0;
 }
 
-Playmaker::Playmaker(int rank, string name, int born, string position, int gamesPlayed, int goals,
-                 int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
+Veteran::Veteran(int rank, string name, int born, string position, int gamesPlayed, int goals,
+                     int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
         Player(rank, name, born, position, gamesPlayed,goals, assists,
                points, penalty, fightStat, shotStat, passStat*multiplier){
 }
 
-string Playmaker::playerSaying() {
+string Veteran::playerSaying() {
     string catchPhrase;
     int i;
     if(0 >= i >= 2) {
@@ -36,7 +36,7 @@ string Playmaker::playerSaying() {
     if(3 >= i >= 5) {
         catchPhrase = "";
     } else {
-        catchPhrase = "Playmaker";
+        catchPhrase = "Veteran";
     }
 
 

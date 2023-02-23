@@ -36,7 +36,7 @@ string Normal::playerSaying() {
     if(3 >= i >= 5) {
         catchPhrase = "";
     } else {
-        catchPhrase = "";
+        catchPhrase = "Normal";
     }
 
     return catchPhrase;
