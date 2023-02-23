@@ -33,8 +33,8 @@ protected:
     double fightStat;
     double shotStat;
     double passStat;
-    double const statMultiplier = 1.2;
-    double const veteranStatMultiplier = 1.075;
+    double statMultiplier = 1.2;
+    double veteranStatMultiplier = 1.075;
     int const MAX_SCORE = 100;
 
 

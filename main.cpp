@@ -25,7 +25,10 @@ int main(){
     double shotStat;
     double passStat;
 
-    getPlayerStats(players, 497, fightStat, shotStat, passStat);
+    for(int i = 0; i < players.size(); ++i){
+        getPlayerStats(players, i, fightStat, shotStat, passStat);
+    }
+
 
 
     return 0;
@@ -162,6 +165,7 @@ void getPlayerAmounts(vector<unique_ptr<Player>>& players) {
 
 void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &fightStat, double &shotStat, double &passStat){
     cout << "Player name: " << players[index]->getName() << endl;
+    cout << "Player type: " << players[index]->playerSaying() << endl;
 
     fightStat = players[index]->getFightStat();
     cout << "Fighter Stat: " << fightStat << endl;
@@ -171,6 +175,9 @@ void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &figh
 
     passStat = players[index]->getPassStat();
     cout << "Pass Stat: " << passStat << endl;
+    cout << endl;
+
+
 }
 
 

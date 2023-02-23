@@ -20,12 +20,13 @@ Sniper::Sniper() : Player(){
     fightStat = -1;
     shotStat = -1;
     passStat = -1;
+
 }
 
 Sniper::Sniper(int rank, string name, int born, string position, int gamesPlayed, int goals,
                  int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
         Player(rank, name, born, position, gamesPlayed,goals, assists,
-               points, penalty, fightStat, shotStat*statMultiplier, passStat){
+               points, penalty, fightStat, shotStat*1.2, passStat){
 }
 
 string Sniper::playerSaying() {

@@ -25,8 +25,8 @@ Veteran::Veteran() : Player(){
 Veteran::Veteran(int rank, string name, int born, string position, int gamesPlayed, int goals,
                      int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
         Player(rank, name, born, position, gamesPlayed,goals, assists, points, penalty,
-               fightStat*veteranStatMultiplier, shotStat*veteranStatMultiplier,
-               passStat*veteranStatMultiplier){
+               fightStat*1.075, shotStat*1.075,
+               passStat*1.075){
 }
 
 string Veteran::playerSaying() {
