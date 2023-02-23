@@ -8,6 +8,7 @@
 using namespace std;
 
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
+void printHeader();
 
 int main(){
 
@@ -100,6 +101,15 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
 
     }
     inFile.close();
+}
+
+void printHeader() {
+
+    cout << left << setw(25) << "NAME" << setw(6) << "RANK" << setw(11) <<
+         "YEAR BORN" << setw(10) << "POSITION" << setw(14) << "GAMES PLAYED" <<
+         setw(8) << "GOALS" << setw(9) << "ASSISTS" << setw(8) << "POINTS"
+         << setw(15) << "PENALTY MINUTES" << endl;
+    cout << setfill(' ');
 }
 
 

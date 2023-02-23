@@ -65,7 +65,7 @@ public:
      * Modifies: nothing
      * Effects: returns player's rank
      */
-    int getRank() const;
+    virtual int getRank() const;
 
 
     /**
@@ -73,77 +73,77 @@ public:
      * Modifies: nothing
      * Effects: returns player's name
      */
-    string getName() const;
+    virtual string getName() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's birth year
      */
-    int getBorn() const;
+    virtual int getBorn() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's position
      */
-    string getPosition() const;
+    virtual string getPosition() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of games played
      */
-    int getGamesPlayed() const;
+    virtual int getGamesPlayed() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of goals scored
      */
-    int getGoals() const;
+    virtual int getGoals() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of assists
      */
-    int getAssists() const;
+    virtual int getAssists() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of points
      */
-    int getPoints() const;
+    virtual int getPoints() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of penalty minutes
      */
-    int getPenalty() const;
+    virtual int getPenalty() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's fight stat
      */
-    double getFightStat() const;
+    virtual double getFightStat() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of shot stat
      */
-    double getShotStat() const;
+    virtual double getShotStat() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of pass stat
      */
-    double getPassStat() const;
+    virtual double getPassStat() const;
 
     /**
      * Requires: rank
@@ -250,7 +250,6 @@ public:
 
     virtual std::string playerSaying() = 0;
 
-    void printHeader();
 
 };
 
