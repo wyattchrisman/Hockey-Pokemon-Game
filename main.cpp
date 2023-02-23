@@ -17,6 +17,7 @@ int main(){
     vector<unique_ptr<Player>> players;
     getDataFromFile(filename,players);
 
+    printHeader();
     for(int i = 0; i < players.size(); ++i){
         cout << players[i] << endl;
     }
