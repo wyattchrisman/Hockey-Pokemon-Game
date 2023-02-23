@@ -244,7 +244,7 @@ public:
 
 };
 
-void getDataFromFile(string filename, vector<Player>& players);
+void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 
 void printHeader();
 

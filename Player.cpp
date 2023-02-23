@@ -4,6 +4,9 @@
 
 #include "Player.h"
 #include "Normal.h"
+#include "Fighter.h"
+#include "Playmaker.h"
+#include "Sniper.h"
 #include <vector>
 
 Player::Player() {
@@ -250,9 +253,25 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
         inFile >> penalty;
 
 
-        //Store info in a player object and add to vector
-        players.push_back(make_unique<Normal>(rank, name, born, position, gamesPlayed, goals,
-                                 assists, points, penalty, fightStat, shotStat, passStat));
+
+        bool setType = false;
+        if(goals >= 310) {
+            players.push_back(make_unique<Sniper>(rank, name, born, position, gamesPlayed, goals,
+                                                  assists, points, penalty, fightStat, shotStat, passStat));
+            setType = true;
+        }
+        if(assists >= 462 && !setType) {
+            players.push_back(make_unique<Playmaker>(rank, name, born, position, gamesPlayed, goals,
+                                                  assists, points, penalty, fightStat, shotStat, passStat));
+            setType = true;
+            }
+            if(penalty >= 955 && !setType){
+                players.push_back(make_unique<Fighter>(rank, name, born, position, gamesPlayed, goals,
+                                                      assists, points, penalty, fightStat, shotStat, passStat));
+            } else {
+                players.push_back(make_unique<Normal>(rank, name, born, position, gamesPlayed, goals,
+                                                      assists, points, penalty, fightStat, shotStat, passStat));
+            }
 
 
     }
