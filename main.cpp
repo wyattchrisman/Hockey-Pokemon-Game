@@ -3,7 +3,7 @@
 #include <iomanip>
 using namespace std;
 
-
+vector<Player> setPlayerTypes(vector<Player> players);
 
 int main(){
 
@@ -12,8 +12,7 @@ int main(){
     vector<Player> players;
     getDataFromFile(filename,players);
 
-    printHeader();
-    cout << players[0] << endl;
+    vector<Player> playerTypes = setPlayerTypes(players);
 
 
 
@@ -21,4 +20,16 @@ int main(){
 };
 
 
+vector<Player> setPlayerTypes(vector<Player> players){
+    vector<Player> newPlayers;
+    bool setType;
 
+    for(int i = 0; i < players.size(); ++i){
+        setType = false;
+        if(players[i].getGoals() >= 310){
+
+        }
+    }
+
+
+}
