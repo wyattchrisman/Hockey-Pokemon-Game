@@ -22,9 +22,9 @@ Sniper::Sniper() : Player(){
 }
 
 Sniper::Sniper(int rank, string name, int born, string position, int gamesPlayed, int goals,
-                 int assists, int points, int penalty, int fightStat, int shotStat, int passStat) :
+                 int assists, int points, int penalty, double fightStat, double shotStat, double passStat) :
         Player(rank, name, born, position, gamesPlayed,goals, assists,
-               points, penalty, fightStat, shotStat, passStat){
+               points, penalty, fightStat, shotStat*multiplier, passStat){
 }
 
 string Sniper::playerSaying() {

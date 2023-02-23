@@ -17,13 +17,13 @@ Player::Player() {
     assists = -1;
     points = -1;
     penalty = -1;
-    fightStat = -1;
-    shotStat = -1;
-    passStat = -1;
+    fightStat = 0;
+    shotStat = 0;
+    passStat = 0;
 }
 
 Player::Player(int rank, string name, int born, string position, int gamesPlayed,int goals,
-               int assists, int points, int penalty, int fightStat, int shotStat, int passStat) {
+               int assists, int points, int penalty, double fightStat, double shotStat, double passStat) {
 
     this->rank = rank;
     this->name = name;
@@ -75,15 +75,15 @@ int Player::getPenalty() const {
     return penalty;
 }
 
-int Player::getFightStat() const{
+double Player::getFightStat() const{
     return fightStat;
 }
 
-int Player::getShotStat() const{
+double Player::getShotStat() const{
     return shotStat;
 }
 
-int Player::getPassStat() const{
+double Player::getPassStat() const{
     return passStat;
 }
 
@@ -123,25 +123,19 @@ void Player::setPenalty(int penalty) {
     this->penalty = penalty;
 }
 
-void Player::setFightStat(int fightStat) {
+void Player::setFightStat(double fightStat) {
     this->fightStat = fightStat;
 }
 
-void Player::setShotStat(int shotStat) {
+void Player::setShotStat(double shotStat) {
     this->shotStat = shotStat;
 }
 
-void Player::setPassStat(int passStat) {
+void Player::setPassStat(double passStat) {
     this->passStat = passStat;
 }
 
 
-
-/**
-     *
-     * NEED FIXING
-     *
-     */
 ostream& operator << (ostream& outs, const Player& pla){
     outs << left << setw(23) << pla.getName();
     outs << right << setw(5) << pla.getRank();

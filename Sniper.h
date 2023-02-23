@@ -13,7 +13,7 @@ public:
     Sniper();
 
     explicit Sniper(int rank, string name, int born, string position, int gamesPlayed,
-                     int goals, int assists, int points, int penalty, int fightStat, int shotStat, int passStat);
+                     int goals, int assists, int points, int penalty, double fightStat, double shotStat, double passStat);
 
     virtual std::string playerSaying() override;
 

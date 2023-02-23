@@ -30,9 +30,10 @@ protected:
     int assists; //number of assists in career
     int points; //number of points in career
     int penalty; //number of penatly minutes in career
-    int fightStat;
-    int shotStat;
-    int passStat;
+    double fightStat;
+    double shotStat;
+    double passStat;
+    double multiplier = 1.3;
 
 
 public:
@@ -49,7 +50,7 @@ public:
      * Effects: sets all player qualities to input values
      */
     explicit Player(int rank, string name, int born, string position, int gamesPlayed,
-           int goals, int assists, int points, int penalty, int fightStat, int shotStat, int passStat);
+           int goals, int assists, int points, int penalty, double fightStat, double shotStat, double passStat);
 
     /**
      * Requires: nothing
@@ -120,21 +121,21 @@ public:
      * Modifies: nothing
      * Effects: returns player's fight stat
      */
-    int getFightStat() const;
+    double getFightStat() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of shot stat
      */
-    int getShotStat() const;
+    double getShotStat() const;
 
     /**
      * Requires: nothing
      * Modifies: nothing
      * Effects: returns player's amount of pass stat
      */
-    int getPassStat() const;
+    double getPassStat() const;
 
     /**
      * Requires: rank
@@ -204,25 +205,25 @@ public:
      * Modifies: fightStat
      * Effects: sets player's fightStat
      */
-    void setFightStat(int fightStat);
+    void setFightStat(double fightStat);
 
     /**
      * Requires: shotStat
      * Modifies: shotStat
      * Effects: sets player's shotStat
      */
-    void setShotStat(int shotStat);
+    void setShotStat(double shotStat);
 
     /**
      * Requires: passStat
      * Modifies: passStat
      * Effects: sets player's passStat
      */
-    void setPassStat(int passStat);
+    void setPassStat(double passStat);
 
     /**
      *
-     * NEED FIXING
+     * Overload all operators
      *
      */
     friend ostream& operator << (ostream& outs, const Player& pla);
