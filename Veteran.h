@@ -17,6 +17,7 @@ public:
 
     virtual std::string playerSaying() override;
 
+    virtual std::string getPlayerType() override;
 };
 
 #endif //M2OEP_WCHRISMA_VETERAN_H

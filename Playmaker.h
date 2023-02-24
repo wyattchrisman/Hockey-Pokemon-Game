@@ -16,6 +16,7 @@ public:
 
     virtual std::string playerSaying() override;
 
+    virtual std::string getPlayerType() override;
 };
 
 

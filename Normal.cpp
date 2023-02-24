@@ -42,3 +42,7 @@ string Normal::playerSaying() {
 
     return catchPhrase;
 }
+
+string Normal::getPlayerType() {
+    return "Normal";
+}

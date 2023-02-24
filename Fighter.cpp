@@ -40,8 +40,9 @@ string Fighter::playerSaying() {
     } else {
         catchPhrase = "Fighter";
     }
-
-
-
     return catchPhrase;
+}
+
+string Fighter::getPlayerType() {
+    return "Fighter";
 }

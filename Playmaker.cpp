@@ -40,7 +40,9 @@ string Playmaker::playerSaying() {
         catchPhrase = "Playmaker";
     }
 
-
-
     return catchPhrase;
+}
+
+string Playmaker::getPlayerType() {
+    return "Playmaker";
 }

@@ -41,7 +41,9 @@ string Sniper::playerSaying() {
         catchPhrase = "Sniper";
     }
 
-
-
     return catchPhrase;
+}
+
+string Sniper::getPlayerType() {
+    return "Sniper";
 }

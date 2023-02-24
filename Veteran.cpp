@@ -41,7 +41,9 @@ string Veteran::playerSaying() {
         catchPhrase = "Veteran";
     }
 
-
-
     return catchPhrase;
+}
+
+string Veteran::getPlayerType() {
+    return "Veteran";
 }

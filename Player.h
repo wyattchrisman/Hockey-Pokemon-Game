@@ -251,6 +251,8 @@ public:
 
     virtual std::string playerSaying() = 0;
 
+    virtual std::string getPlayerType() = 0;
+
 
 };
 

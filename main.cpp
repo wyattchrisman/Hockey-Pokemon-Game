@@ -11,7 +11,8 @@ using namespace std;
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 void printHeader();
 void getPlayerAmounts(vector<unique_ptr<Player>>& players);
-void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &fightStat, double &shotStat, double &passStat);
+void getPlayerStats(vector<unique_ptr<Player>> &players, int index, double &fightStat, double &shotStat, double &passStat);
+void getPlayerIndex(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &newPlayer);
 
 int main(){
 
@@ -21,17 +22,9 @@ int main(){
 
     getDataFromFile(filename,players);
 
-    double fightStat;
-    double shotStat;
-    double passStat;
+    vector<unique_ptr<Player>> usedPlayers;
 
-//    for(int i = 0; i < players.size(); ++i){
-//        getPlayerStats(players, i, fightStat, shotStat, passStat);
-//    }
 
-//     getPlayerAmounts(players);
-
-    getPlayerStats(players, 497, fightStat, shotStat, passStat);
 
     return 0;
 };
@@ -178,4 +171,12 @@ void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &figh
     passStat = players[index]->getPassStat();
     cout << "Pass Stat: " << passStat << endl;
     cout << endl;
+}
+
+void getPlayerIndex(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& usedPlayers, unique_ptr<Player> &newPlayer){
+    srand(time(NULL));
+
+    newPlayer = players[rand()%1000];
+    usedPlayers.push_back(newPlayer);
+
 }

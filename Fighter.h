@@ -16,6 +16,8 @@ public:
 
     virtual std::string playerSaying() override;
 
+    virtual std::string getPlayerType() override;
+
 };
 
 #endif //M2OEP_WCHRISMA_FIGHTER_H
