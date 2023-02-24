@@ -155,51 +155,27 @@ ostream& operator << (ostream& outs, const unique_ptr<Player> &pla){
 }
 
 bool operator < (const Player& lhs, const Player& rhs) {
-    int result = lhs.getName().compare(rhs.getName());
-    if(result < 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() < rhs.getRank();
 }
 
 bool operator > (const Player& lhs, const Player& rhs){
-    int result = lhs.getName().compare(rhs.getName());
-    if(result > 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() > rhs.getRank();
 }
 
 bool operator <= (const Player& lhs, const Player& rhs){
-    int result = lhs.getName().compare(rhs.getName());
-    if(result <= 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() <= rhs.getRank();
 }
 
 bool operator >= (const Player& lhs, const Player& rhs){
-    int result = lhs.getName().compare(rhs.getName());
-    if(result >= 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() >= rhs.getRank();
 }
 
 bool operator == (const Player& lhs, const Player& rhs){
-    int result = lhs.getName().compare(rhs.getName());
-    if(result == 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() == rhs.getRank();
 }
 
 bool operator != (const Player& lhs, const Player& rhs){
-    int result = lhs.getName().compare(rhs.getName());
-    if(result != 0)
-        return true;
-    else
-        return false;
+    return lhs.getRank() != rhs.getRank();
 }
 
 

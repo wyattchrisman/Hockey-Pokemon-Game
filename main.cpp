@@ -13,6 +13,7 @@ void printHeader();
 void getPlayerAmounts(vector<unique_ptr<Player>>& players);
 void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotStat, double &passStat);
 void getPlayer(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
+bool checkPlayerUsed(vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &player);
 
 int main(){
 
@@ -28,18 +29,23 @@ int main(){
     srand(time(NULL));
 
     printHeader();
-    for(int i = 0; i < 5; ++i){
+    for(int i = 0; i < 10; ++i){
         getPlayer(players, usedPlayers, newPlayer, discardPlayer);
         cout << newPlayer << endl;
     }
 
-
-
-    cout << "\nUSED\n" << endl;
-    printHeader();
+    cout << "\nUSED\n";
     for(int i = 0; i < usedPlayers.size(); ++i){
         cout << usedPlayers[i] << endl;
     }
+
+
+
+//    cout << "\nUSED\n" << endl;
+//    printHeader();
+//    for(int i = 0; i < usedPlayers.size(); ++i){
+//        cout << usedPlayers[i] << endl;
+//    }
 
 
     return 0;
@@ -195,55 +201,169 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
     int randNum = rand()%1000;
 
 
-    if(players[randNum]->getPlayerType() == "Normal"){
-        unique_ptr<Player>discardPlayer = make_unique<Normal>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                            players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Normal>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat()));
+    if (players[randNum]->getPlayerType() == "Normal") {
+        unique_ptr<Player> discardPlayer = make_unique<Normal>(players[randNum]->getRank(),
+                                                               players[randNum]->getName(),
+                                                               players[randNum]->getBorn(),
+                                                               players[randNum]->getPosition(),
+                                                               players[randNum]->getGamesPlayed(),
+                                                               players[randNum]->getGoals(),
+                                                               players[randNum]->getAssists(),
+                                                               players[randNum]->getPoints(),
+                                                               players[randNum]->getPenalty(),
+                                                               players[randNum]->getFightStat(),
+                                                               players[randNum]->getShotStat(),
+                                                               players[randNum]->getPassStat());
+
+        usedPlayers.push_back(make_unique<Normal>(players[randNum]->getRank(),
+                                                      players[randNum]->getName(),
+                                                      players[randNum]->getBorn(),
+                                                      players[randNum]->getPosition(),
+                                                      players[randNum]->getGamesPlayed(),
+                                                      players[randNum]->getGoals(),
+                                                      players[randNum]->getAssists(),
+                                                      players[randNum]->getPoints(),
+                                                      players[randNum]->getPenalty(),
+                                                      players[randNum]->getFightStat(),
+                                                      players[randNum]->getShotStat(),
+                                                      players[randNum]->getPassStat()));
+
+        newPlayer.swap(discardPlayer);
+        discardPlayer.reset();
+
+    }
+    if (players[randNum]->getPlayerType() == "Sniper") {
+        unique_ptr<Player> discardPlayer = make_unique<Sniper>(players[randNum]->getRank(),
+                                                               players[randNum]->getName(),
+                                                               players[randNum]->getBorn(),
+                                                               players[randNum]->getPosition(),
+                                                               players[randNum]->getGamesPlayed(),
+                                                               players[randNum]->getGoals(),
+                                                               players[randNum]->getAssists(),
+                                                               players[randNum]->getPoints(),
+                                                               players[randNum]->getPenalty(),
+                                                               players[randNum]->getFightStat(),
+                                                               players[randNum]->getShotStat(),
+                                                               players[randNum]->getPassStat());
+
+        usedPlayers.push_back(make_unique<Sniper>(players[randNum]->getRank(),
+                                                  players[randNum]->getName(),
+                                                  players[randNum]->getBorn(),
+                                                  players[randNum]->getPosition(),
+                                                  players[randNum]->getGamesPlayed(),
+                                                  players[randNum]->getGoals(),
+                                                  players[randNum]->getAssists(),
+                                                  players[randNum]->getPoints(),
+                                                  players[randNum]->getPenalty(),
+                                                  players[randNum]->getFightStat(),
+                                                  players[randNum]->getShotStat(),
+                                                  players[randNum]->getPassStat()));
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
     }
-    if(players[randNum]->getPlayerType() == "Sniper"){
-        unique_ptr<Player>discardPlayer = make_unique<Sniper>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                              players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat());
+    if (players[randNum]->getPlayerType() == "Fighter") {
+        unique_ptr<Player> discardPlayer = make_unique<Fighter>(players[randNum]->getRank(),
+                                                                players[randNum]->getName(),
+                                                                players[randNum]->getBorn(),
+                                                                players[randNum]->getPosition(),
+                                                                players[randNum]->getGamesPlayed(),
+                                                                players[randNum]->getGoals(),
+                                                                players[randNum]->getAssists(),
+                                                                players[randNum]->getPoints(),
+                                                                players[randNum]->getPenalty(),
+                                                                players[randNum]->getFightStat(),
+                                                                players[randNum]->getShotStat(),
+                                                                players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Sniper>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat()));
-
-        newPlayer.swap(discardPlayer);
-        discardPlayer.reset();
-    }
-    if(players[randNum]->getPlayerType() == "Fighter"){
-        unique_ptr<Player>discardPlayer = make_unique<Fighter>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                              players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat());
-
-        usedPlayers.push_back(make_unique<Fighter>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat()));
-
-        newPlayer.swap(discardPlayer);
-        discardPlayer.reset();
-    }
-    if(players[randNum]->getPlayerType() == "Playmaker"){
-        unique_ptr<Player>discardPlayer = make_unique<Playmaker>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                              players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat());
-
-        usedPlayers.push_back(make_unique<Playmaker>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat()));
-
-        newPlayer.swap(discardPlayer);
-        discardPlayer.reset();
-    }
-    if(players[randNum]->getPlayerType() == "Veteran"){
-        unique_ptr<Player>discardPlayer = make_unique<Veteran>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                              players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat());
-
-        usedPlayers.push_back(make_unique<Veteran>(players[randNum]->getRank(), players[randNum]->getName(), players[randNum]->getBorn(), players[randNum]->getPosition(), players[randNum]->getGamesPlayed(), players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(), players[randNum]->getPoints(), players[randNum]->getPenalty(), players[randNum]->getFightStat(), players[randNum]->getShotStat(), players[randNum]->getPassStat()));
+        usedPlayers.push_back(make_unique<Fighter>(players[randNum]->getRank(),
+                                                   players[randNum]->getName(),
+                                                   players[randNum]->getBorn(),
+                                                   players[randNum]->getPosition(),
+                                                   players[randNum]->getGamesPlayed(),
+                                                   players[randNum]->getGoals(),
+                                                   players[randNum]->getAssists(),
+                                                   players[randNum]->getPoints(),
+                                                   players[randNum]->getPenalty(),
+                                                   players[randNum]->getFightStat(),
+                                                   players[randNum]->getShotStat(),
+                                                   players[randNum]->getPassStat()));
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
     }
+    if (players[randNum]->getPlayerType() == "Playmaker") {
+        unique_ptr<Player> discardPlayer = make_unique<Playmaker>(players[randNum]->getRank(),
+                                                                  players[randNum]->getName(),
+                                                                  players[randNum]->getBorn(),
+                                                                  players[randNum]->getPosition(),
+                                                                  players[randNum]->getGamesPlayed(),
+                                                                  players[randNum]->getGoals(),
+                                                                  players[randNum]->getAssists(),
+                                                                  players[randNum]->getPoints(),
+                                                                  players[randNum]->getPenalty(),
+                                                                  players[randNum]->getFightStat(),
+                                                                  players[randNum]->getShotStat(),
+                                                                  players[randNum]->getPassStat());
 
+        usedPlayers.push_back(make_unique<Playmaker>(players[randNum]->getRank(),
+                                                     players[randNum]->getName(),
+                                                     players[randNum]->getBorn(),
+                                                     players[randNum]->getPosition(),
+                                                     players[randNum]->getGamesPlayed(),
+                                                     players[randNum]->getGoals(),
+                                                     players[randNum]->getAssists(),
+                                                     players[randNum]->getPoints(),
+                                                     players[randNum]->getPenalty(),
+                                                     players[randNum]->getFightStat(),
+                                                     players[randNum]->getShotStat(),
+                                                     players[randNum]->getPassStat()));
+
+        newPlayer.swap(discardPlayer);
+        discardPlayer.reset();
+    }
+    if (players[randNum]->getPlayerType() == "Veteran") {
+        unique_ptr<Player> discardPlayer = make_unique<Veteran>(players[randNum]->getRank(),
+                                                                players[randNum]->getName(),
+                                                                players[randNum]->getBorn(),
+                                                                players[randNum]->getPosition(),
+                                                                players[randNum]->getGamesPlayed(),
+                                                                players[randNum]->getGoals(),
+                                                                players[randNum]->getAssists(),
+                                                                players[randNum]->getPoints(),
+                                                                players[randNum]->getPenalty(),
+                                                                players[randNum]->getFightStat(),
+                                                                players[randNum]->getShotStat(),
+                                                                players[randNum]->getPassStat());
+
+        usedPlayers.push_back(make_unique<Veteran>(players[randNum]->getRank(),
+                                                   players[randNum]->getName(),
+                                                   players[randNum]->getBorn(),
+                                                   players[randNum]->getPosition(),
+                                                   players[randNum]->getGamesPlayed(),
+                                                   players[randNum]->getGoals(),
+                                                   players[randNum]->getAssists(),
+                                                   players[randNum]->getPoints(),
+                                                   players[randNum]->getPenalty(),
+                                                   players[randNum]->getFightStat(),
+                                                   players[randNum]->getShotStat(),
+                                                   players[randNum]->getPassStat()));
+
+        newPlayer.swap(discardPlayer);
+        discardPlayer.reset();
+    }
+
+    if(checkPlayerUsed(usedPlayers, newPlayer)){
+        getPlayer(players, usedPlayers, newPlayer, discardPlayer);
+    }
+}
+
+bool checkPlayerUsed(vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &player){
+    for(int i = 0; i < usedPlayers.size()-1; ++i){
+        if(usedPlayers[i]->getRank() == player->getRank()){
+            return true;
+        }
+    }
+    return false;
 }
