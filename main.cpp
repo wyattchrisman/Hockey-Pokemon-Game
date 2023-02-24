@@ -25,11 +25,13 @@ int main(){
     double shotStat;
     double passStat;
 
-    for(int i = 0; i < players.size(); ++i){
-        getPlayerStats(players, i, fightStat, shotStat, passStat);
-    }
+//    for(int i = 0; i < players.size(); ++i){
+//        getPlayerStats(players, i, fightStat, shotStat, passStat);
+//    }
 
+//     getPlayerAmounts(players);
 
+    getPlayerStats(players, 497, fightStat, shotStat, passStat);
 
     return 0;
 };
@@ -94,22 +96,22 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players) {
         passStat = assists/22.40;
 
         bool setType = false;
-        if(goals >= 310) {
+        if(goals >= 356) {
             players.push_back(make_unique<Sniper>(rank, name, born, position, gamesPlayed, goals,
                                                   assists, points, penalty, fightStat, shotStat, passStat));
             setType = true;
         }
-        if(assists >= 462 && !setType) {
+        if(assists >= 409 && !setType) {
             players.push_back(make_unique<Playmaker>(rank, name, born, position, gamesPlayed, goals,
                                                      assists, points, penalty, fightStat, shotStat, passStat));
             setType = true;
         }
-        if(penalty >= 955 && !setType){
+        if(penalty >= 798 && !setType){
             players.push_back(make_unique<Fighter>(rank, name, born, position, gamesPlayed, goals,
                                                    assists, points, penalty, fightStat, shotStat, passStat));
             setType = true;
         }
-        if(gamesPlayed >= 750 && !setType){
+        if(gamesPlayed >= 700 && !setType){
             players.push_back(make_unique<Veteran>(rank, name, born, position, gamesPlayed, goals,
                                                    assists, points, penalty, fightStat, shotStat, passStat));
             setType = true;
@@ -176,10 +178,4 @@ void getPlayerStats(vector<unique_ptr<Player>>& players, int index, double &figh
     passStat = players[index]->getPassStat();
     cout << "Pass Stat: " << passStat << endl;
     cout << endl;
-
-
 }
-
-
-
-
