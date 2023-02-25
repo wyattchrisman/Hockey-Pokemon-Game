@@ -12,8 +12,7 @@ void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
 void printHeader();
 void getPlayerAmounts(vector<unique_ptr<Player>>& players);
 void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotStat, double &passStat);
-void getPlayer(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
-bool checkPlayerUsed(vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &player);
+void getPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
 
 int main(){
 
@@ -23,21 +22,16 @@ int main(){
 
     getDataFromFile(filename,players);
 
-    vector<unique_ptr<Player>> usedPlayers;
     unique_ptr<Player> newPlayer, discardPlayer;
 
     srand(time(NULL));
 
     printHeader();
-    for(int i = 0; i < 10; ++i){
-        getPlayer(players, usedPlayers, newPlayer, discardPlayer);
-        cout << newPlayer << endl;
+    for(int i = 0; i < 1000; ++i){
+        getPlayer(players, newPlayer, discardPlayer);
+        cout << i << ": " << newPlayer << endl;
     }
 
-    cout << "\nUSED\n";
-    for(int i = 0; i < usedPlayers.size(); ++i){
-        cout << usedPlayers[i] << endl;
-    }
 
 
 
@@ -195,12 +189,10 @@ void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotS
     cout << endl;
 }
 
-void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& usedPlayers, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer){
+void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer){
 
 
-    int randNum = rand()%1000;
-
-
+    int randNum = rand()%players.size();
 
     if (players[randNum]->getPlayerType() == "Normal") {
         unique_ptr<Player> discardPlayer = make_unique<Normal>(players[randNum]->getRank(),
@@ -216,18 +208,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
                                                                players[randNum]->getShotStat(),
                                                                players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Normal>(players[randNum]->getRank(),
-                                                      players[randNum]->getName(),
-                                                      players[randNum]->getBorn(),
-                                                      players[randNum]->getPosition(),
-                                                      players[randNum]->getGamesPlayed(),
-                                                      players[randNum]->getGoals(),
-                                                      players[randNum]->getAssists(),
-                                                      players[randNum]->getPoints(),
-                                                      players[randNum]->getPenalty(),
-                                                      players[randNum]->getFightStat(),
-                                                      players[randNum]->getShotStat(),
-                                                      players[randNum]->getPassStat()));
+        players.erase(players.begin() + randNum);
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
@@ -247,18 +228,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
                                                                players[randNum]->getShotStat(),
                                                                players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Sniper>(players[randNum]->getRank(),
-                                                  players[randNum]->getName(),
-                                                  players[randNum]->getBorn(),
-                                                  players[randNum]->getPosition(),
-                                                  players[randNum]->getGamesPlayed(),
-                                                  players[randNum]->getGoals(),
-                                                  players[randNum]->getAssists(),
-                                                  players[randNum]->getPoints(),
-                                                  players[randNum]->getPenalty(),
-                                                  players[randNum]->getFightStat(),
-                                                  players[randNum]->getShotStat(),
-                                                  players[randNum]->getPassStat()));
+        players.erase(players.begin() + randNum);
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
@@ -277,18 +247,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
                                                                 players[randNum]->getShotStat(),
                                                                 players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Fighter>(players[randNum]->getRank(),
-                                                   players[randNum]->getName(),
-                                                   players[randNum]->getBorn(),
-                                                   players[randNum]->getPosition(),
-                                                   players[randNum]->getGamesPlayed(),
-                                                   players[randNum]->getGoals(),
-                                                   players[randNum]->getAssists(),
-                                                   players[randNum]->getPoints(),
-                                                   players[randNum]->getPenalty(),
-                                                   players[randNum]->getFightStat(),
-                                                   players[randNum]->getShotStat(),
-                                                   players[randNum]->getPassStat()));
+        players.erase(players.begin() + randNum);
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
@@ -307,18 +266,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
                                                                   players[randNum]->getShotStat(),
                                                                   players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Playmaker>(players[randNum]->getRank(),
-                                                     players[randNum]->getName(),
-                                                     players[randNum]->getBorn(),
-                                                     players[randNum]->getPosition(),
-                                                     players[randNum]->getGamesPlayed(),
-                                                     players[randNum]->getGoals(),
-                                                     players[randNum]->getAssists(),
-                                                     players[randNum]->getPoints(),
-                                                     players[randNum]->getPenalty(),
-                                                     players[randNum]->getFightStat(),
-                                                     players[randNum]->getShotStat(),
-                                                     players[randNum]->getPassStat()));
+        players.erase(players.begin() + randNum);
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
@@ -337,33 +285,10 @@ void getPlayer(vector<unique_ptr<Player>>& players, vector<unique_ptr<Player>>& 
                                                                 players[randNum]->getShotStat(),
                                                                 players[randNum]->getPassStat());
 
-        usedPlayers.push_back(make_unique<Veteran>(players[randNum]->getRank(),
-                                                   players[randNum]->getName(),
-                                                   players[randNum]->getBorn(),
-                                                   players[randNum]->getPosition(),
-                                                   players[randNum]->getGamesPlayed(),
-                                                   players[randNum]->getGoals(),
-                                                   players[randNum]->getAssists(),
-                                                   players[randNum]->getPoints(),
-                                                   players[randNum]->getPenalty(),
-                                                   players[randNum]->getFightStat(),
-                                                   players[randNum]->getShotStat(),
-                                                   players[randNum]->getPassStat()));
+        players.erase(players.begin() + randNum);
 
         newPlayer.swap(discardPlayer);
         discardPlayer.reset();
     }
 
-    if(checkPlayerUsed(usedPlayers, newPlayer)){
-        getPlayer(players, usedPlayers, newPlayer, discardPlayer);
-    }
-}
-
-bool checkPlayerUsed(vector<unique_ptr<Player>> &usedPlayers, unique_ptr<Player> &player){
-    for(int i = 0; i < usedPlayers.size()-1; ++i){
-        if(usedPlayers[i]->getRank() == player->getRank()){
-            return true;
-        }
-    }
-    return false;
 }
