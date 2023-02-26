@@ -17,6 +17,8 @@ void getPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &newPlaye
 void startGame(vector<unique_ptr<Player>> &players);
 void printRules();
 int getInt(int min, int max);
+void setPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player);
+void setComputerPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player);
 void fight(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
 void shot(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
 void pass(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
@@ -298,47 +300,52 @@ void startGame(vector<unique_ptr<Player>> &players){
     printRules();
 
     cout << "Here are your three player choices: " << endl;
-    unique_ptr<Player> discardPlayer;
-    unique_ptr<Player> temp1;
-    unique_ptr<Player> temp2;
-    unique_ptr<Player> temp3;
-    unique_ptr<Player> temp4;
+
     unique_ptr<Player> userPlayer1;
+    setPlayer(players, userPlayer1);
+
     unique_ptr<Player> userPlayer2;
+    setPlayer(players, userPlayer2);
+
     unique_ptr<Player> userPlayer3;
+    setPlayer(players, userPlayer3);
+
     unique_ptr<Player> userPlayer4;
+    setPlayer(players, userPlayer4);
+
     unique_ptr<Player> userPlayer5;
+    setPlayer(players, userPlayer5);
 
-
-    getPlayer(players, temp1, discardPlayer);
-    getPlayer(players, temp2, discardPlayer);
-    getPlayer(players, temp3, discardPlayer);
-    getPlayer(players, temp4, discardPlayer);
-
+    cout << "\nYour Team: " << endl;
     printHeader();
-    cout << temp1 << endl;
-    cout << temp2 << endl;
-    cout << temp3 << endl;
+    cout << userPlayer1 << endl;
+    cout << userPlayer2 << endl;
+    cout << userPlayer3 << endl;
+    cout << userPlayer4 << endl;
+    cout << userPlayer5 << endl;
 
-    int input = getInt(1,4);
+    unique_ptr<Player> compPlayer1;
+    setComputerPlayer(players, compPlayer1);
 
-    if(input == 1){
-        userPlayer1.swap(temp1);
-    }
-    if(input == 2){
-        userPlayer1.swap(temp2);
-    }
-    if(input == 3){
-        userPlayer1.swap(temp3);
-    }
-    if(input == 4){
-        userPlayer1.swap(temp4);
-    }
+    unique_ptr<Player> compPlayer2;
+    setComputerPlayer(players, compPlayer2);
 
+    unique_ptr<Player> compPlayer3;
+    setComputerPlayer(players, compPlayer3);
 
+    unique_ptr<Player> compPlayer4;
+    setComputerPlayer(players, compPlayer4);
 
+    unique_ptr<Player> compPlayer5;
+    setComputerPlayer(players, compPlayer5);
 
-
+    cout << "\nOpponents Team: " << endl;
+    printHeader();
+    cout << compPlayer1 << endl;
+    cout << compPlayer2 << endl;
+    cout << compPlayer3 << endl;
+    cout << compPlayer4 << endl;
+    cout << compPlayer5 << endl;
 
 }
 
@@ -398,12 +405,64 @@ int getInt(int min, int max) {
             }
         }
     }
-
-
-
-
-
-
     return input;
+}
+
+void setPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player){
+    unique_ptr<Player> discardPlayer;
+    unique_ptr<Player> temp1;
+    unique_ptr<Player> temp2;
+    unique_ptr<Player> temp3;
+
+
+    getPlayer(players, temp1, discardPlayer);
+    getPlayer(players, temp2, discardPlayer);
+    getPlayer(players, temp3, discardPlayer);
+
+    printHeader();
+    cout << temp1 << endl;
+    cout << temp2 << endl;
+    cout << temp3 << endl;
+
+    int input = getInt(1,4);
+
+    if(input == 1){
+        player.swap(temp1);
+    }
+    if(input == 2){
+        player.swap(temp2);
+    }
+    if(input == 3){
+        player.swap(temp3);
+    }
+    if(input == 4){
+        unique_ptr<Player> temp4;
+        getPlayer(players, temp4, discardPlayer);
+        player.swap(temp4);
+        cout << "Your random player: " << endl;
+        cout << player << endl;
+        cout << endl;
+    }
+}
+
+void setComputerPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player){
+    unique_ptr<Player> discardPlayer;
+    unique_ptr<Player> temp1;
+    unique_ptr<Player> temp2;
+    unique_ptr<Player> temp3;
+
+    getPlayer(players, temp1, discardPlayer);
+    getPlayer(players, temp2, discardPlayer);
+    getPlayer(players, temp3, discardPlayer);
+
+    if(temp1->getRank() < temp2->getRank()){
+        player.swap(temp1);
+    } else {
+        player.swap(temp2);
+    }
+
+    if(temp3->getRank() < player->getRank()) {
+        player.swap(temp3);
+    }
 }
 
