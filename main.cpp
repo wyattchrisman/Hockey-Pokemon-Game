@@ -14,11 +14,12 @@ void printHeader();
 void getPlayerAmounts(vector<unique_ptr<Player>>& players);
 void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotStat, double &passStat);
 void getPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
-void startGame(vector<unique_ptr<Player>> &players);
+void getTeams(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam);
 void printRules();
 int getInt(int min, int max);
-void setPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player);
-void setComputerPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player);
+void setPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &player);
+void setComputerPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &player);
+void addToTeam(vector<unique_ptr<Player>> &team, unique_ptr<Player> &playerAdded);
 void fight(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
 void shot(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
 void pass(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
@@ -37,8 +38,11 @@ int main(){
 
     srand(time(NULL));
 
+    vector<unique_ptr<Player>> userTeam;
+    vector<unique_ptr<Player>> compTeam;
 
-    startGame(players);
+    getTeams(players, userTeam, compTeam);
+
 
 
 
@@ -197,7 +201,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
     int randNum = rand()%players.size();
 
     if (players[randNum]->getPlayerType() == "Normal") {
-        unique_ptr<Player> discardPlayer = make_unique<Normal>(players[randNum]->getRank(),
+        discardPlayer = make_unique<Normal>(players[randNum]->getRank(),
                                                                players[randNum]->getName(),
                                                                players[randNum]->getBorn(),
                                                                players[randNum]->getPosition(),
@@ -217,7 +221,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
 
     }
     if (players[randNum]->getPlayerType() == "Sniper") {
-        unique_ptr<Player> discardPlayer = make_unique<Sniper>(players[randNum]->getRank(),
+        discardPlayer = make_unique<Sniper>(players[randNum]->getRank(),
                                                                players[randNum]->getName(),
                                                                players[randNum]->getBorn(),
                                                                players[randNum]->getPosition(),
@@ -236,7 +240,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
         discardPlayer.reset();
     }
     if (players[randNum]->getPlayerType() == "Fighter") {
-        unique_ptr<Player> discardPlayer = make_unique<Fighter>(players[randNum]->getRank(),
+        discardPlayer = make_unique<Fighter>(players[randNum]->getRank(),
                                                                 players[randNum]->getName(),
                                                                 players[randNum]->getBorn(),
                                                                 players[randNum]->getPosition(),
@@ -255,7 +259,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
         discardPlayer.reset();
     }
     if (players[randNum]->getPlayerType() == "Playmaker") {
-        unique_ptr<Player> discardPlayer = make_unique<Playmaker>(players[randNum]->getRank(),
+        discardPlayer = make_unique<Playmaker>(players[randNum]->getRank(),
                                                                   players[randNum]->getName(),
                                                                   players[randNum]->getBorn(),
                                                                   players[randNum]->getPosition(),
@@ -274,7 +278,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
         discardPlayer.reset();
     }
     if (players[randNum]->getPlayerType() == "Veteran") {
-        unique_ptr<Player> discardPlayer = make_unique<Veteran>(players[randNum]->getRank(),
+        discardPlayer = make_unique<Veteran>(players[randNum]->getRank(),
                                                                 players[randNum]->getName(),
                                                                 players[randNum]->getBorn(),
                                                                 players[randNum]->getPosition(),
@@ -295,7 +299,7 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
 
 }
 
-void startGame(vector<unique_ptr<Player>> &players){
+void getTeams(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam){
     cout << "Welcome to Wyatt's Hockey Game!" << endl;
     printRules();
 
@@ -316,13 +320,19 @@ void startGame(vector<unique_ptr<Player>> &players){
     unique_ptr<Player> userPlayer5;
     setPlayer(players, userPlayer5);
 
+    addToTeam(userTeam, userPlayer1);
+    addToTeam(userTeam, userPlayer2);
+    addToTeam(userTeam, userPlayer3);
+    addToTeam(userTeam, userPlayer4);
+    addToTeam(userTeam, userPlayer5);
+
+
+
     cout << "\nYour Team: " << endl;
     printHeader();
-    cout << userPlayer1 << endl;
-    cout << userPlayer2 << endl;
-    cout << userPlayer3 << endl;
-    cout << userPlayer4 << endl;
-    cout << userPlayer5 << endl;
+    for(int i = 0; i < userTeam.size(); ++i){
+        cout << userTeam[i] << endl;
+    }
 
     unique_ptr<Player> compPlayer1;
     setComputerPlayer(players, compPlayer1);
@@ -339,13 +349,17 @@ void startGame(vector<unique_ptr<Player>> &players){
     unique_ptr<Player> compPlayer5;
     setComputerPlayer(players, compPlayer5);
 
+    addToTeam(compTeam, compPlayer1);
+    addToTeam(compTeam, compPlayer2);
+    addToTeam(compTeam, compPlayer3);
+    addToTeam(compTeam, compPlayer4);
+    addToTeam(compTeam, compPlayer5);
+
     cout << "\nOpponents Team: " << endl;
     printHeader();
-    cout << compPlayer1 << endl;
-    cout << compPlayer2 << endl;
-    cout << compPlayer3 << endl;
-    cout << compPlayer4 << endl;
-    cout << compPlayer5 << endl;
+    for(int i = 0; i < compTeam.size(); ++i){
+        cout << compTeam[i] << endl;
+    }
 
 }
 
@@ -463,6 +477,79 @@ void setComputerPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &
 
     if(temp3->getRank() < player->getRank()) {
         player.swap(temp3);
+    }
+}
+
+void addToTeam(vector<unique_ptr<Player>> &team, unique_ptr<Player> &playerAdded){
+    if (playerAdded->getPlayerType() == "Normal") {
+        team.push_back(make_unique<Normal>(playerAdded->getRank(),
+                                            playerAdded->getName(),
+                                            playerAdded->getBorn(),
+                                            playerAdded->getPosition(),
+                                            playerAdded->getGamesPlayed(),
+                                            playerAdded->getGoals(),
+                                            playerAdded->getAssists(),
+                                            playerAdded->getPoints(),
+                                            playerAdded->getPenalty(),
+                                            playerAdded->getFightStat(),
+                                            playerAdded->getShotStat(),
+                                            playerAdded->getPassStat()));
+    }
+    if (playerAdded->getPlayerType() == "Sniper") {
+        team.push_back(make_unique<Sniper>(playerAdded->getRank(),
+                                           playerAdded->getName(),
+                                           playerAdded->getBorn(),
+                                           playerAdded->getPosition(),
+                                           playerAdded->getGamesPlayed(),
+                                           playerAdded->getGoals(),
+                                           playerAdded->getAssists(),
+                                           playerAdded->getPoints(),
+                                           playerAdded->getPenalty(),
+                                           playerAdded->getFightStat(),
+                                           playerAdded->getShotStat(),
+                                           playerAdded->getPassStat()));
+    }
+    if (playerAdded->getPlayerType() == "Fighter") {
+        team.push_back(make_unique<Fighter>(playerAdded->getRank(),
+                                           playerAdded->getName(),
+                                           playerAdded->getBorn(),
+                                           playerAdded->getPosition(),
+                                           playerAdded->getGamesPlayed(),
+                                           playerAdded->getGoals(),
+                                           playerAdded->getAssists(),
+                                           playerAdded->getPoints(),
+                                           playerAdded->getPenalty(),
+                                           playerAdded->getFightStat(),
+                                           playerAdded->getShotStat(),
+                                           playerAdded->getPassStat()));
+    }
+    if (playerAdded->getPlayerType() == "Playmaker") {
+        team.push_back(make_unique<Playmaker>(playerAdded->getRank(),
+                                           playerAdded->getName(),
+                                           playerAdded->getBorn(),
+                                           playerAdded->getPosition(),
+                                           playerAdded->getGamesPlayed(),
+                                           playerAdded->getGoals(),
+                                           playerAdded->getAssists(),
+                                           playerAdded->getPoints(),
+                                           playerAdded->getPenalty(),
+                                           playerAdded->getFightStat(),
+                                           playerAdded->getShotStat(),
+                                           playerAdded->getPassStat()));
+    }
+    if (playerAdded->getPlayerType() == "Veteran") {
+        team.push_back(make_unique<Veteran>(playerAdded->getRank(),
+                                           playerAdded->getName(),
+                                           playerAdded->getBorn(),
+                                           playerAdded->getPosition(),
+                                           playerAdded->getGamesPlayed(),
+                                           playerAdded->getGoals(),
+                                           playerAdded->getAssists(),
+                                           playerAdded->getPoints(),
+                                           playerAdded->getPenalty(),
+                                           playerAdded->getFightStat(),
+                                           playerAdded->getShotStat(),
+                                           playerAdded->getPassStat()));
     }
 }
 
