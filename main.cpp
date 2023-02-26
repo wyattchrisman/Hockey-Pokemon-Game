@@ -6,6 +6,7 @@
 #include "Veteran.cpp"
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 using namespace std;
 
 void getDataFromFile(string filename, vector<unique_ptr<Player>>& players);
@@ -13,6 +14,14 @@ void printHeader();
 void getPlayerAmounts(vector<unique_ptr<Player>>& players);
 void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotStat, double &passStat);
 void getPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
+void startGame(vector<unique_ptr<Player>> &players);
+void printRules();
+int getInt(int min, int max);
+void fight(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
+void shot(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
+void pass(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
+
+
 
 int main(){
 
@@ -26,20 +35,10 @@ int main(){
 
     srand(time(NULL));
 
-    printHeader();
-    for(int i = 0; i < 1000; ++i){
-        getPlayer(players, newPlayer, discardPlayer);
-        cout << i << ": " << newPlayer << endl;
-    }
+
+    startGame(players);
 
 
-
-
-//    cout << "\nUSED\n" << endl;
-//    printHeader();
-//    for(int i = 0; i < usedPlayers.size(); ++i){
-//        cout << usedPlayers[i] << endl;
-//    }
 
 
     return 0;
@@ -189,6 +188,7 @@ void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotS
     cout << endl;
 }
 
+
 void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer){
 
 
@@ -292,3 +292,118 @@ void getPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &newPlaye
     }
 
 }
+
+void startGame(vector<unique_ptr<Player>> &players){
+    cout << "Welcome to Wyatt's Hockey Game!" << endl;
+    printRules();
+
+    cout << "Here are your three player choices: " << endl;
+    unique_ptr<Player> discardPlayer;
+    unique_ptr<Player> temp1;
+    unique_ptr<Player> temp2;
+    unique_ptr<Player> temp3;
+    unique_ptr<Player> temp4;
+    unique_ptr<Player> userPlayer1;
+    unique_ptr<Player> userPlayer2;
+    unique_ptr<Player> userPlayer3;
+    unique_ptr<Player> userPlayer4;
+    unique_ptr<Player> userPlayer5;
+
+
+    getPlayer(players, temp1, discardPlayer);
+    getPlayer(players, temp2, discardPlayer);
+    getPlayer(players, temp3, discardPlayer);
+    getPlayer(players, temp4, discardPlayer);
+
+    printHeader();
+    cout << temp1 << endl;
+    cout << temp2 << endl;
+    cout << temp3 << endl;
+
+    int input = getInt(1,4);
+
+    if(input == 1){
+        userPlayer1.swap(temp1);
+    }
+    if(input == 2){
+        userPlayer1.swap(temp2);
+    }
+    if(input == 3){
+        userPlayer1.swap(temp3);
+    }
+    if(input == 4){
+        userPlayer1.swap(temp4);
+    }
+
+
+
+
+
+
+}
+
+void printRules(){
+    cout << "You will create your team of 5 players. " << endl;
+    cout << "For each pick, you will be given a choice of 3 players." << endl;
+    cout << "BUT, if you don't like any of those players you will have" << endl;
+    cout << "a choice at an unknown player, which will automatically be assigned to you team." << endl;
+    cout << endl;
+    cout << "This team will then go head to head against another 5 man team." << endl;
+    cout << "There will consist of 3 different game modes: " << endl;
+    cout << "A fight, an accuracy shooting competition, and a passing accuracy competition." << endl;
+    cout << "To begin the game, one of these modes will be chosen at random." << endl;
+    cout << "Your first player will be put head to head against their first player." << endl;
+    cout << "If you win the game, you can choose a different game mode and your opponents second player will come in." << endl;
+    cout << "But, if your opponent wins, the game mode will be chosen at random and you can assign a new player." << endl;
+    cout << endl;
+}
+
+int getInt(int min, int max) {
+    cout << "\nEnter your choice of player 1, 2, 3, or 4 for an unknown player: ";
+
+    string stringIn;
+    int input;
+    char character;
+    stringstream ss;
+
+    getline(cin, stringIn);
+
+    bool valid = false;
+    while(!valid){
+        if(stringIn.size() != 1){
+            cout << "Input must be one digit. Please enter a number between " << min << "-" << max << ": ";
+            getline(cin, stringIn);
+        }
+
+        if(stringIn.size() == 1){
+            character = stringIn[0];
+            if (!isdigit(character)) {
+                cout << "Input can only be integers. Please enter a number between " << min << "-" << max << ": ";
+                getline(cin, stringIn);
+                character = stringIn[0];
+            }
+            if(isdigit(character)) {
+                ss << stringIn;
+                ss >> input;
+                if(input > max || input < min) {
+                    cout << "Input can only be between " << min << "-" << max << ". Please enter a valid number: ";
+                    getline(cin, stringIn);
+                    ss.clear();
+                    ss << stringIn;
+                    ss >> input;
+                }
+                if(input <= max && input >= min) {
+                    valid = true;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+    return input;
+}
+
