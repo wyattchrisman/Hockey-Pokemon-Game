@@ -31,14 +31,14 @@ Sniper::Sniper(int rank, string name, int born, string position, int gamesPlayed
 
 string Sniper::playerSaying() {
     string catchPhrase;
-    int i;
-    if(0 >= i >= 2) {
-        catchPhrase = "";
+    int i = rand()%10;
+    if(0 <= i <= 2) {
+        catchPhrase = "I only need once shot, and you don't have one!";
     }
-    if(3 >= i >= 5) {
-        catchPhrase = "";
+    if(3 <= i <= 5) {
+        catchPhrase = "You should just give up now!";
     } else {
-        catchPhrase = "Sniper";
+        catchPhrase = "I don't think this is going to end well for you!";
     }
 
     return catchPhrase;

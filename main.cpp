@@ -16,13 +16,14 @@ void getPlayerStats(unique_ptr<Player> &player, double &fightStat, double &shotS
 void getPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &newPlayer, unique_ptr<Player> &discardPlayer);
 void getTeams(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam);
 void printRules();
-int getInt(int min, int max);
+int getInt(int min, int max, string prompt);
 void setPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &player);
 void setComputerPlayer(vector<unique_ptr<Player>> &players, unique_ptr<Player> &player);
 void addToTeam(vector<unique_ptr<Player>> &team, unique_ptr<Player> &playerAdded);
-void fight(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
-void shot(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
-void pass(unique_ptr<Player> &player1, unique_ptr<Player> &player2);
+void fight(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed);
+void shot(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed);
+void pass(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed);
+void startGame(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam);
 
 
 
@@ -41,11 +42,26 @@ int main(){
     vector<unique_ptr<Player>> userTeam;
     vector<unique_ptr<Player>> compTeam;
 
+    double fightStat;
+    double shotStat;
+    double passStat;
+
+
     getTeams(players, userTeam, compTeam);
 
+    bool userWon;
+    bool proceed = true;
 
 
+    //fight(userTeam, compTeam, 0, 0, userWon, proceed);
+    //shot(userTeam, compTeam, 0, 0, userWon, proceed);
+    //pass(userTeam, compTeam, 0, 0, userWon, proceed);
 
+
+    //getPlayerStats(players[0], fightStat, shotStat, passStat);
+    //getPlayerStats(players[923], fightStat, shotStat, passStat);
+
+    startGame(userTeam, compTeam);
 
     return 0;
 };
@@ -360,7 +376,6 @@ void getTeams(vector<unique_ptr<Player>> &players, vector<unique_ptr<Player>> &u
     for(int i = 0; i < compTeam.size(); ++i){
         cout << compTeam[i] << endl;
     }
-
 }
 
 void printRules(){
@@ -379,8 +394,9 @@ void printRules(){
     cout << endl;
 }
 
-int getInt(int min, int max) {
-    cout << "\nEnter your choice of player 1, 2, 3, or 4 for an unknown player: ";
+int getInt(int min, int max, string prompt) {
+
+    cout << prompt;
 
     string stringIn;
     int input;
@@ -419,6 +435,7 @@ int getInt(int min, int max) {
             }
         }
     }
+    cout << endl;
     return input;
 }
 
@@ -438,7 +455,8 @@ void setPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player){
     cout << temp2 << endl;
     cout << temp3 << endl;
 
-    int input = getInt(1,4);
+    string prompt =  "Enter your choice of player 1, 2, 3, or 4 for an unknown player: ";
+    int input = getInt(1,4, prompt);
 
     if(input == 1){
         player.swap(temp1);
@@ -454,6 +472,7 @@ void setPlayer(vector<unique_ptr<Player>>& players, unique_ptr<Player> &player){
         getPlayer(players, temp4, discardPlayer);
         player.swap(temp4);
         cout << "Your random player: " << endl;
+        printHeader();
         cout << player << endl;
         cout << endl;
     }
@@ -553,3 +572,415 @@ void addToTeam(vector<unique_ptr<Player>> &team, unique_ptr<Player> &playerAdded
     }
 }
 
+void fight(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed){
+    double difference;
+    double probability;
+    bool userHigher;
+
+    cout << "\nYour player: " << userTeam[userIndex]->getName() << " a " << userTeam[userIndex]->getPlayerType() << " type player with " << userTeam[userIndex]->getPenalty() << " career penalty minutes." << endl;
+    cout << "vs." << endl;
+    cout << "Opponent: " << compTeam[0]->getName() << " a "<< compTeam[0]->getPlayerType() << " type player with " << compTeam[0]->getPenalty() << " career penalty minutes."<< endl;
+
+    if(userTeam[userIndex]->getFightStat() > compTeam[0]->getFightStat()){
+        difference = userTeam[userIndex]->getFightStat() - compTeam[0]->getFightStat();
+        userHigher = true;
+    } else {
+        difference = compTeam[0]->getFightStat() - userTeam[userIndex]->getFightStat();
+        userHigher = false;
+    }
+    if(difference >= 90.0){
+        probability = 98.0;
+    }
+    if(65.0 <= difference < 90.0){
+        probability = 94.0;
+    }
+    if(55.0 <= difference < 65.0) {
+        probability = 80.0;
+    }
+    if(40.0 <= difference < 55.0){
+        probability = 75.0;
+    }
+    if(30.0 <= difference < 40.0){
+        probability = 65.0;
+    }
+    if(20.0 <= difference < 30.0){
+        probability = 60.0;
+    }
+    if(5.0 <= difference < 20.0){
+        probability = 55.0;
+    }
+    if(difference < 5.0){
+        probability = 50.0;
+    }
+
+    double randNum = rand()%100;
+
+    cout << endl;
+
+    cout << userTeam[userIndex]->getName() << ": " << userTeam[userIndex]->playerSaying() << endl;
+    cout << compTeam[0]->getName() << ": " << compTeam[0]->playerSaying() << endl;
+
+    cout << endl;
+
+    if(randNum >= probability){
+        if(userHigher){
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        } else {
+            userWon = false;
+        }
+    } else {
+        if(userHigher) {
+            userWon = false;
+        } else {
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        }
+    }
+
+    if(userWon){
+        cout << userTeam[userIndex]->getName() << " has won the fight! You won this round!" << endl;
+    }
+    if(userWon && !proceed){
+        cout << "\nCONGRATULATION!!! You have won the whole game! You drafter the better team!" << endl;
+    }
+    if(!userWon){
+        cout << compTeam[0]->getName() << " has won the fight. You lost this round." << endl;
+    }
+    cout << endl;
+}
+
+void shot(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed){
+    double difference;
+    double probability;
+    bool userHigher;
+
+    cout << "\nYour player: " << userTeam[userIndex]->getName() << " a " << userTeam[userIndex]->getPlayerType() << " type player with " << userTeam[userIndex]->getGoals() << " career goals." << endl;
+    cout << "vs." << endl;
+    cout << "Opponent: " << compTeam[0]->getName() << " a "<< compTeam[0]->getPlayerType() << " type player with " << compTeam[0]->getGoals() << " career goals."<< endl;
+
+    if(userTeam[userIndex]->getShotStat() > compTeam[0]->getShotStat()){
+        difference = userTeam[userIndex]->getShotStat() - compTeam[0]->getShotStat();
+        userHigher = true;
+    } else {
+        difference = compTeam[0]->getShotStat() - userTeam[userIndex]->getShotStat();
+        userHigher = false;
+    }
+
+    if(difference >= 90.0){
+        probability = 98.0;
+    }
+    if(65.0 <= difference < 90.0){
+        probability = 94.0;
+    }
+    if(55.0 <= difference < 65.0) {
+        probability = 80.0;
+    }
+    if(40.0 <= difference < 55.0){
+        probability = 75.0;
+    }
+    if(30.0 <= difference < 40.0){
+        probability = 65.0;
+    }
+    if(20.0 <= difference < 30.0){
+        probability = 60.0;
+    }
+    if(5.0 <= difference < 20.0){
+        probability = 55.0;
+    }
+    if(difference < 5.0){
+        probability = 50.0;
+    }
+
+    double randNum = rand()%100;
+
+    cout << endl;
+
+    cout << userTeam[userIndex]->getName() << ": " << userTeam[userIndex]->playerSaying() << endl;
+    cout << compTeam[0]->getName() << ": " << compTeam[0]->playerSaying() << endl;
+
+    cout << endl;
+
+    if(randNum >= probability){
+        if(userHigher){
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        } else {
+            userWon = false;
+        }
+    } else {
+        if(userHigher) {
+            userWon = false;
+        } else {
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        }
+    }
+
+    if(userWon){
+        cout << userTeam[userIndex]->getName() << " has won the shooting accuracy competition! You won this round!" << endl;
+    }
+    if(userWon && !proceed){
+        cout << "\nCONGRATULATION!!! You have won the whole game! You drafter the better team!" << endl;
+    }
+    if(!userWon){
+        cout << compTeam[0]->getName() << " has won the shooting accuracy competition. You lost this round." << endl;
+    }
+    cout << endl;
+}
+
+void pass(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam, int userIndex, bool &userWon, bool &proceed){
+    double difference;
+    double probability;
+    bool userHigher;
+
+    cout << "\nYour player: " << userTeam[userIndex]->getName() << " a " << userTeam[userIndex]->getPlayerType() << " type player with " << userTeam[userIndex]->getAssists() << " career assists." << endl;
+    cout << "vs." << endl;
+    cout << "Opponent: " << compTeam[0]->getName() << " a "<< compTeam[0]->getPlayerType() << " type player with " << compTeam[0]->getAssists() << " career assists."<< endl;
+
+    if(userTeam[userIndex]->getPassStat() > compTeam[0]->getPassStat()){
+        difference = userTeam[userIndex]->getPassStat() - compTeam[0]->getPassStat();
+        userHigher = true;
+    } else {
+        difference = compTeam[0]->getPassStat() - userTeam[userIndex]->getPassStat();
+        userHigher = false;
+    }
+
+    if(difference >= 75.0){
+        probability = 98.0;
+    }
+    if(65.0 <= difference < 75.0){
+        probability = 94.0;
+    }
+    if(55.0 <= difference < 65.0) {
+        probability = 80.0;
+    }
+    if(40.0 <= difference < 55.0){
+        probability = 75.0;
+    }
+    if(30.0 <= difference < 40.0){
+        probability = 65.0;
+    }
+    if(20.0 <= difference < 30.0){
+        probability = 60.0;
+    }
+    if(5.0 <= difference < 20.0){
+        probability = 55.0;
+    }
+    if(difference < 5.0){
+        probability = 50.0;
+    }
+
+    double randNum = rand()%100;
+
+    cout << endl;
+
+    cout << userTeam[userIndex]->getName() << ": " << userTeam[userIndex]->playerSaying() << endl;
+    cout << compTeam[0]->getName() << ": " << compTeam[0]->playerSaying() << endl;
+
+    cout << endl;
+
+    if(randNum >= probability){
+        if(userHigher){
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        } else {
+            userWon = false;
+        }
+    } else {
+        if(userHigher) {
+            userWon = false;
+        } else {
+            userWon = true;
+
+            compTeam.erase(compTeam.begin() + 0);
+            if(compTeam.size() < 1){
+                proceed = false;
+            }
+        }
+    }
+
+    if(userWon){
+        cout << userTeam[userIndex]->getName() << " has won the passing accuracy competition! You won this round!" << endl;
+    }
+    if(userWon && !proceed) {
+        cout << "\nCONGRATULATION!!! You have won the whole game! You drafter the better team!" << endl;
+    }
+    if(!userWon){
+            cout << compTeam[0]->getName() << " has won the passing accuracy competition. You lost this round." << endl;
+    }
+
+    cout << endl;
+}
+
+void startGame(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &compTeam){
+    bool proceed = true;
+    bool userWon;
+
+    cout << endl;
+    int input = getInt(1,3,"Enter 1 to begin the first game, 2 to hear the rules again, or 3 to quit: ");
+
+    if(input == 2){
+        printRules();
+        input = getInt(1,3, "Enter 1 or 2 to begin the first game, or 3 to quit: ");
+    }
+    if(input == 3){
+        return;
+    }
+
+    int playerChoice = 0;
+
+    int gameMode = rand()%3;
+    if(gameMode == 0){
+        cout << "The First Game will be a fight." << endl;
+        fight(userTeam, compTeam, playerChoice, userWon, proceed);
+    }
+    if(gameMode == 1){
+        cout << "The First Game will be a shooting competition." << endl;
+        shot(userTeam, compTeam, playerChoice, userWon, proceed);
+    }
+    if(gameMode == 2){
+        cout << "The First Game will be a passing competition." << endl;
+        pass(userTeam, compTeam, playerChoice, userWon, proceed);
+    }
+
+
+    cout << endl;
+    int checkPlayers;
+    while(proceed){
+        if(userWon){
+            cout << "Your next game will be against : " << compTeam[0]->getName() << endl;
+            cout << "Would you like to see your remaining players?" << endl;
+            checkPlayers = getInt(1,2, "Enter 1 see players remaining, or 2 to skip: ");
+            if(checkPlayers == 1){
+                cout << "Your team: " << endl;
+                printHeader();
+                for(int i = 0; i < userTeam.size(); ++i){
+                    cout << userTeam[i] << endl;
+                }
+            }
+
+            cout << "Would you like to see your opponents remaining players?" << endl;
+            checkPlayers = getInt(1,2, "Enter 1 to see opponents players remaining, or 2 to skip: ");
+            if(checkPlayers == 1){
+                cout << "Opponent's team: " << endl;
+                printHeader();
+                for(int i = 0; i < compTeam.size(); ++i){
+                    cout << compTeam[i] << endl;
+                }
+            }
+
+            cout << endl;
+
+            playerChoice = getInt(1, userTeam.size(), "Which player would you like to use? (1-"+ to_string(userTeam.size()) + "): ");
+
+            cout << "Which game mode would you like ?" << endl;
+            gameMode = getInt(1,3, "Fight: 1\nShooting: 2\nPassing: 3\nChoice: ");
+
+            if(gameMode == 1){
+                fight(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+            if(gameMode == 2){
+                shot(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+            if(gameMode == 3){
+                pass(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+
+            if(userTeam.size() == 1 && !userWon){
+                proceed = false;
+            }
+        }
+        if(!userWon) {
+
+            if(playerChoice == 0){
+                userTeam.erase(userTeam.begin() + playerChoice);
+            } else {
+                userTeam.erase(userTeam.begin() + playerChoice-1);
+            }
+
+
+            gameMode = rand()%3;
+            if(gameMode == 0){
+                cout << "The next game will be a fight against "<< compTeam[0]->getName() << endl;
+                cout << endl;
+            }
+            if(gameMode == 1){
+                cout << "The next game will be a shooting competition against "<< compTeam[0]->getName() << endl;
+                cout << endl;
+            }
+            if(gameMode == 2){
+                cout << "The next game will be a passing competition against "<< compTeam[0]->getName() << endl;
+                cout << endl;
+            }
+
+            cout << "Would you like to see your remaining players?" << endl;
+            checkPlayers = getInt(1,2, "Enter 1 see players remaining, or 2 to skip: ");
+            if(checkPlayers == 1){
+                cout << "Your team: " << endl;
+                printHeader();
+                for(int i = 0; i < userTeam.size(); ++i){
+                    cout << userTeam[i] << endl;
+                }
+            }
+
+            cout << "Would you like to see your opponents remaining players?" << endl;
+            checkPlayers = getInt(1,2, "Enter 1 to see opponents players remaining, or 2 to skip: ");
+            if(checkPlayers == 1){
+                cout << "Opponent's team: " << endl;
+                printHeader();
+                for(int i = 0; i < compTeam.size(); ++i){
+                    cout << compTeam[i] << endl;
+                }
+            }
+
+            playerChoice = getInt(1, userTeam.size(), "Which player would you like to use? (1-"+ to_string(userTeam.size()) + "): ");
+
+            if(gameMode == 0){
+                fight(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+            if(gameMode == 1){
+                shot(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+            if(gameMode == 2){
+                pass(userTeam, compTeam, playerChoice-1, userWon, proceed);
+            }
+
+            if(userTeam.size() == 1 && !userWon){
+                proceed = false;
+            }
+        }
+    }
+    if(!userWon || userTeam.size() < 1){
+        cout << "That was a tough game! I'm sure you'll draft a better team next time!" << endl;
+    }
+
+
+    cout << "Would you like to play again?" << endl;
+    int playAgain = getInt(1,2,"Enter 1 to play again, or 2 to quit: ");
+    if(playAgain == 1){
+        main();
+    } else {
+        cout << "Thank you for playing!!!" << endl;
+    }
+}

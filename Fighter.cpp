@@ -31,14 +31,14 @@ Fighter::Fighter(int rank, string name, int born, string position, int gamesPlay
 
 string Fighter::playerSaying() {
     string catchPhrase;
-    int i;
-    if(0 >= i >= 2) {
-        catchPhrase = "";
+    int i = rand()%10;
+    if(0 <= i <= 2) {
+        catchPhrase = "I'm known for my fighting ability, we'll see what you got";
     }
-    if(3 >= i >= 5) {
-        catchPhrase = "";
+    if(3 <= i <= 5) {
+        catchPhrase = "You better watch out, you're gonna regret challenging me";
     } else {
-        catchPhrase = "Fighter";
+        catchPhrase = "I hope you brought your A-game!";
     }
     return catchPhrase;
 }
