@@ -605,7 +605,7 @@ void fight(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &com
 
     cout << endl;
 
-    if(randNum >= probability){
+    if(randNum <= probability){
         if(userHigher){
             userWon = true;
 
@@ -692,7 +692,7 @@ void shot(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &comp
 
     cout << endl;
 
-    if(randNum >= probability){
+    if(randNum <= probability){
         if(userHigher){
             userWon = true;
 
@@ -779,7 +779,7 @@ void pass(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> &comp
 
     cout << endl;
 
-    if(randNum >= probability){
+    if(randNum <= probability){
         if(userHigher){
             userWon = true;
 

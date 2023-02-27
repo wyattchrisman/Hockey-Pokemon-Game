@@ -32,10 +32,10 @@ Veteran::Veteran(int rank, string name, int born, string position, int gamesPlay
 string Veteran::playerSaying() {
     string catchPhrase;
     int i = rand()%10;
-    if(0 <= i <= 2) {
+    if(0 <= i < 3) {
         catchPhrase = "I've been in this league longer than you've been alive!";
     }
-    if(3 <= i <= 5) {
+    if(3 <= i < 6) {
         catchPhrase = "I may be old, but don't take me lightly!";
     } else {
         catchPhrase = "Let's see what you got, young-gun!";

@@ -32,10 +32,10 @@ string Playmaker::playerSaying() {
     string catchPhrase;
     int i = rand()%10;
 
-    if(0 <= i <= 2) {
+    if(0 <= i < 3) {
         catchPhrase = "I'm known for being a shifty player, do you think you can handle it?";
     }
-    if(3 <= i <= 5) {
+    if(3 <= i <= 6) {
         catchPhrase = "I'm going to skate circles around you tonight, you're not ready!";
     } else {
         catchPhrase = "You're going to look like a fool after I'm done with you!";

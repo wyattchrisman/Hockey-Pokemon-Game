@@ -9,7 +9,7 @@ add_executable(Main
         main.cpp
         Player.h
 )
-add_executable(Testing
+add_executable(PlayerTesting
         Testing.cpp
         Player.cpp
         Normal.cpp

@@ -32,10 +32,10 @@ Fighter::Fighter(int rank, string name, int born, string position, int gamesPlay
 string Fighter::playerSaying() {
     string catchPhrase;
     int i = rand()%10;
-    if(0 <= i <= 2) {
+    if(0 <= i < 3) {
         catchPhrase = "I'm known for my fighting ability, we'll see what you got";
     }
-    if(3 <= i <= 5) {
+    if(3 <= i < 6) {
         catchPhrase = "You better watch out, you're gonna regret challenging me";
     } else {
         catchPhrase = "I hope you brought your A-game!";

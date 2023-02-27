@@ -31,10 +31,10 @@ Normal::Normal(int rank, string name, int born, string position, int gamesPlayed
 string Normal::playerSaying() {
     string catchPhrase;
     int i = rand()%10;
-    if(0 <= i <= 2) {
+    if(0 <= i < 3) {
         catchPhrase = "I may be an average player, but im not gonna hold back";
     }
-    if(3 <= i <= 5) {
+    if(3 <= i < 6) {
         catchPhrase = "I don't think you're going to win. But might as well try";
     } else {
         catchPhrase = "Do you really think you can beat me?";
