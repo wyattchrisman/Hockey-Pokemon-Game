@@ -21,7 +21,7 @@ Player::Player() {
     points = -1;
     penalty = -1;
 
-   fightStat = -1;
+    fightStat = -1;
     shotStat = -1;
     passStat = -1;
 }

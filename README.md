@@ -20,13 +20,13 @@ Requirements
   * Your main program should have a clear and complex purpose. The goals and functionality of your program should inform the development and design of your class(es) and other concepts. You are highly encouraged to plan and design your main.cpp functionality before writing your other files. Put an add_executable line in CMakeLists.txt to create an executable for your main program. The program should be interactive and all user input must be validated.
 
 
-| Grading Category                           | Points Deserved | Reasoning | 
-|--------------------------------------------|-----------------|-----------|
-| Main program complexity and usability      | /40             |           |
-| Testing program                            | /20             |           |
-| Concepts: Is-A or Has-A class relationship | /20             |           |
-| Concepts: File input or file output        | /5              |           |
-|                                            |                 |           |
+| Grading Category                           | Points Deserved | Reasoning                                                                                                                                                                                 | 
+|--------------------------------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Main program complexity and usability      | 35/40           | All code works without errors. User validation is put into place. Implementation of numerous methods to guide the game function.                                                          |
+| Testing program                            | /20             |                                                                                                                                                                                           |
+| Concepts: Is-A or Has-A class relationship | 30/20           | Player is the main parent class, which has 5 children: Normal, Sniper, Playmaker, Fighter, and Veteran.  These children classes are similar but have an overlaoded playerSaying() method. |
+| Concepts: File input or file output        | 5/5             | All Player information is read in from a csv file                                                                                                                                         |
+|                                            |                 |                                                                                                                                                                                           |
 
 
   Module 2 Concept Menu
