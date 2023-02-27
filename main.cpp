@@ -32,34 +32,17 @@ int main(){
     // Read in all players to vector
     string filename = "../Players_List.csv";
     vector<unique_ptr<Player>> players;
-
     getDataFromFile(filename,players);
-
-    unique_ptr<Player> newPlayer, discardPlayer;
 
     srand(time(NULL));
 
     vector<unique_ptr<Player>> userTeam;
     vector<unique_ptr<Player>> compTeam;
 
-    double fightStat;
-    double shotStat;
-    double passStat;
-
-
     getTeams(players, userTeam, compTeam);
 
     bool userWon;
     bool proceed = true;
-
-
-    //fight(userTeam, compTeam, 0, 0, userWon, proceed);
-    //shot(userTeam, compTeam, 0, 0, userWon, proceed);
-    //pass(userTeam, compTeam, 0, 0, userWon, proceed);
-
-
-    //getPlayerStats(players[0], fightStat, shotStat, passStat);
-    //getPlayerStats(players[923], fightStat, shotStat, passStat);
 
     startGame(userTeam, compTeam);
 
@@ -973,8 +956,10 @@ void startGame(vector<unique_ptr<Player>> &userTeam, vector<unique_ptr<Player>> 
     }
     if(!userWon || userTeam.size() < 1){
         cout << "That was a tough game! I'm sure you'll draft a better team next time!" << endl;
+        cout << "You got past " << 5 - compTeam.size() << " players!" << endl;
+    } else {
+        cout << "You got past all of your opponents players!" << endl;
     }
-
 
     cout << "Would you like to play again?" << endl;
     int playAgain = getInt(1,2,"Enter 1 to play again, or 2 to quit: ");

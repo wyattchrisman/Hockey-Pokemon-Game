@@ -28,6 +28,7 @@ Requirements
 | Concepts: File input or file output        | 5/5             | All Player information is read in from a csv file                                                                                                                                         |
 |                                            |                 |                                                                                                                                                                                           |
 
+* My input validation did not work at the time of recording the video demo.
 
   Module 2 Concept Menu
   You can include any combination of these C++ concepts from Module 2: • Inheritance class relationship
